@@ -1,0 +1,1418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: AlchemyFlux::Service
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!AlchemyFlux/Service.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../AlchemyFlux.html" title="AlchemyFlux (module)">AlchemyFlux</a></span></span>
+     &raquo; 
+    <span class="title">Service</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: AlchemyFlux::Service
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">AlchemyFlux::Service</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/alchemy-flux.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>An Alchemy Flux Service</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#processing_messages-instance_method" title="#processing_messages (instance method)">- (Object) <strong>processing_messages</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The incoming number of messages being processed.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#state-instance_method" title="#state (instance method)">- (Object) <strong>state</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The current state of the Service, either <strong>stopped</strong> or
+<strong>started</strong>.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#transactions-instance_method" title="#transactions (instance method)">- (Object) <strong>transactions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The outgoing message transactions.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generateUUID-class_method" title="generateUUID (class method)">+ (Object) <strong>generateUUID</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Generate a UUID string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start-class_method" title="start (class method)">+ (Object) <strong>start</strong>(ampq_uri = &#39;amqp://localhost&#39;, threadpool_size = 500) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Start the EventMachine and AMQP connections for all Services.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#stop-class_method" title="stop (class method)">+ (Object) <strong>stop</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Stop EventMachine and the.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Service) <strong>initialize</strong>(name, options = {}, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create a AlchemyFlux service instance.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">- (Object) <strong>inspect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>overriding inspect.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_message-instance_method" title="#send_message (instance method)">- (Object) <strong>send_message</strong>(exchange, routing_key, message, options) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>send a message to an exchange with routing key.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_message_to_resource-instance_method" title="#send_message_to_resource (instance method)">- (Object) <strong>send_message_to_resource</strong>(message) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>send a message to a resource.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_message_to_service-instance_method" title="#send_message_to_service (instance method)">- (Object) <strong>send_message_to_service</strong>(service_name, message) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>send a message to a service.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start-instance_method" title="#start (instance method)">- (Object) <strong>start</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>start the service.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#stop-instance_method" title="#stop (instance method)">- (Object) <strong>stop</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Stop the Service.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_s-instance_method" title="#to_s (instance method)">- (Object) <strong>to_s</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>overriding to_s.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="AlchemyFlux::Service (class)">Service</a></span></tt>) <strong>initialize</strong>(name, options = {}, &amp;block) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create a AlchemyFlux service instance</p>
+
+<p><code>name</code> the name of the service being created
+<code>options</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='ivar'>@options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+      <span class='label'>ampq_uri:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>amqp://localhost</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>prefetch:</span> <span class='int'>20</span><span class='comma'>,</span>
+      <span class='label'>timeout:</span> <span class='int'>1000</span><span class='comma'>,</span>
+      <span class='label'>threadpool_size:</span> <span class='int'>500</span><span class='comma'>,</span>
+      <span class='label'>resource_paths:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@service_fn</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>||</span> <span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_message'>message</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+
+  <span class='ivar'>@uuid</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='const'>AlchemyFlux</span><span class='op'>::</span><span class='const'>Service</span><span class='period'>.</span><span class='id identifier rubyid_generateUUID'>generateUUID</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@transactions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@processing_messages</span> <span class='op'>=</span> <span class='int'>0</span>
+
+  <span class='ivar'>@response_queue_name</span> <span class='op'>=</span> <span class='ivar'>@uuid</span>
+  <span class='ivar'>@service_queue_name</span> <span class='op'>=</span> <span class='ivar'>@name</span>
+  <span class='ivar'>@state</span> <span class='op'>=</span> <span class='symbol'>:stopped</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="processing_messages-instance_method">
+  
+    - (<tt>Object</tt>) <strong>processing_messages</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The incoming number of messages being processed</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_processing_messages'>processing_messages</span>
+  <span class='ivar'>@processing_messages</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="state-instance_method">
+  
+    - (<tt>Object</tt>) <strong>state</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The current state of the Service, either <strong>stopped</strong> or
+<strong>started</strong></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_state'>state</span>
+  <span class='ivar'>@state</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="transactions-instance_method">
+  
+    - (<tt>Object</tt>) <strong>transactions</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The outgoing message transactions</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_transactions'>transactions</span>
+  <span class='ivar'>@transactions</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="generateUUID-class_method">
+  
+    + (<tt>Object</tt>) <strong>generateUUID</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Generate a UUID string</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_generateUUID'>generateUUID</span>
+  <span class='const'>UUIDTools</span><span class='op'>::</span><span class='const'>UUID</span><span class='period'>.</span><span class='id identifier rubyid_random_create'>random_create</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='int'>16</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ljust'>ljust</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="start-class_method">
+  
+    + (<tt>Object</tt>) <strong>start</strong>(ampq_uri = &#39;amqp://localhost&#39;, threadpool_size = 500) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Start the EventMachine and AMQP connections for all Services</p>
+
+<p>The application has two or more threads</p>
+<ol><li>
+<p>The Controller Thread (e.g. the rspec thread)</p>
+</li><li>
+<p>The EM Thread</p>
+</li><li>
+<p>The EM defer Threads</p>
+</li></ol>
+
+<p>When we start a Service we do it in a Thread so that it will not block the
+calling Thread</p>
+
+<p>When the FIRST Service is started EM.run initialises in that Thread When
+the second Service is initialises the block is executed in the new thread,
+but all the callbacks will be executed in the EM thread</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 89</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='id identifier rubyid_ampq_uri'>ampq_uri</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>amqp://localhost</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_threadpool_size'>threadpool_size</span><span class='op'>=</span><span class='int'>500</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_reactor_running?'>reactor_running?</span>
+  <span class='id identifier rubyid_start_blocker'>start_blocker</span> <span class='op'>=</span> <span class='const'>Queue</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
+    <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>EM Thread</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_reactor_thread?'>reactor_thread?</span>
+    <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_abort_on_exception'>abort_on_exception</span> <span class='op'>=</span> <span class='kw'>true</span>
+    <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_threadpool_size'>threadpool_size</span> <span class='op'>=</span> <span class='id identifier rubyid_threadpool_size'>threadpool_size</span>
+    <span class='const'>AMQP</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='id identifier rubyid_ampq_uri'>ampq_uri</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_connection'>connection</span><span class='op'>|</span>
+      <span class='cvar'>@@connection</span> <span class='op'>=</span> <span class='id identifier rubyid_connection'>connection</span>
+      <span class='cvar'>@@connection</span><span class='period'>.</span><span class='id identifier rubyid_on_error'>on_error</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_conn'>conn</span><span class='comma'>,</span> <span class='id identifier rubyid_connection_close'>connection_close</span><span class='op'>|</span>
+        <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Channel exception: [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_connection_close'>connection_close</span><span class='period'>.</span><span class='id identifier rubyid_reply_code'>reply_code</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_connection_close'>connection_close</span><span class='period'>.</span><span class='id identifier rubyid_reply_text'>reply_text</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_message'>message</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_message'>message</span>
+      <span class='kw'>end</span>
+      <span class='id identifier rubyid_start_blocker'>start_blocker</span> <span class='op'>&lt;&lt;</span> <span class='symbol'>:unblock</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_start_blocker'>start_blocker</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="stop-class_method">
+  
+    + (<tt>Object</tt>) <strong>stop</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stop EventMachine and the</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 110</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='op'>!</span><span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_reactor_running?'>reactor_running?</span>
+  <span class='id identifier rubyid_stop_blocker'>stop_blocker</span> <span class='op'>=</span> <span class='const'>Queue</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+  <span class='comment'>#last tick
+</span>  <span class='const'>AMQP</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span> <span class='kw'>do</span>
+    <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_stop_event_loop'>stop_event_loop</span>
+    <span class='id identifier rubyid_stop_blocker'>stop_blocker</span> <span class='op'>&lt;&lt;</span> <span class='symbol'>:unblock</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_stop_blocker'>stop_blocker</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
+  <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='float'>0.05</span><span class='rparen'>)</span> <span class='comment'># to ensure it finished
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="inspect-instance_method">
+  
+    - (<tt>Object</tt>) <strong>inspect</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>overriding inspect</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+64
+65
+66</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 64</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='id identifier rubyid_to_s'>to_s</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_message-instance_method">
+  
+    - (<tt>Object</tt>) <strong>send_message</strong>(exchange, routing_key, message, options) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>send a message to an exchange with routing key</p>
+<dl class="rdoc-list note-list"><dt><strong>exchange</strong>
+<dd>
+<p>A AMQP exchange</p>
+</dd><dt><strong>routing_key</strong>
+<dd>
+<p>The routing key to use</p>
+</dd><dt><strong>message</strong>
+<dd>
+<p>The message to be sent</p>
+</dd><dt><strong>options</strong>
+<dd>
+<p>The message options</p>
+</dd></dl>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+297
+298
+299
+300
+301
+302
+303</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 297</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_message'>send_message</span><span class='lparen'>(</span><span class='id identifier rubyid_exchange'>exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_message_options'>message_options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:routing_key</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='const'>MessagePack</span><span class='period'>.</span><span class='id identifier rubyid_pack'>pack</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='const'>EventMachine</span><span class='period'>.</span><span class='id identifier rubyid_next_tick'>next_tick</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_exchange'>exchange</span><span class='period'>.</span><span class='id identifier rubyid_publish'>publish</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_message_options'>message_options</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_message_to_resource-instance_method">
+  
+    - (<tt>Object</tt>) <strong>send_message_to_resource</strong>(message) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>send a message to a resource</p>
+<dl class="rdoc-list note-list"><dt><strong>message</strong>
+<dd>
+<p>the message to be sent to the <strong>path</strong> in the message</p>
+</dd></dl>
+
+<p>This method can optionally take a block which will be executed
+asynchronously and yielded the response</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 326</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_message_to_resource'>send_message_to_resource</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_routing_key'>routing_key</span> <span class='op'>=</span> <span class='id identifier rubyid_path_to_routing_key'>path_to_routing_key</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='const'>EventMachine</span><span class='period'>.</span><span class='id identifier rubyid_defer'>defer</span> <span class='kw'>do</span>
+      <span class='kw'>yield</span> <span class='id identifier rubyid_send_message_to_resource'>send_message_to_resource</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_send_HTTP_request_message'>send_HTTP_request_message</span><span class='lparen'>(</span><span class='ivar'>@resources_exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_message_to_service-instance_method">
+  
+    - (<tt>Object</tt>) <strong>send_message_to_service</strong>(service_name, message) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>send a message to a service</p>
+<dl class="rdoc-list note-list"><dt><strong>service_name</strong>
+<dd>
+<p>the name of the service</p>
+</dd><dt><strong>message</strong>
+<dd>
+<p>the message to be sent</p>
+</dd></dl>
+
+<p>This method can optionally take a block which will be executed
+asynchronously and yielded the response</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+311
+312
+313
+314
+315
+316
+317
+318
+319</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 311</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_message_to_service'>send_message_to_service</span><span class='lparen'>(</span><span class='id identifier rubyid_service_name'>service_name</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+    <span class='const'>EventMachine</span><span class='period'>.</span><span class='id identifier rubyid_defer'>defer</span> <span class='kw'>do</span>
+      <span class='kw'>yield</span> <span class='id identifier rubyid_send_message_to_service'>send_message_to_service</span><span class='lparen'>(</span><span class='id identifier rubyid_service_name'>service_name</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_send_HTTP_request_message'>send_HTTP_request_message</span><span class='lparen'>(</span><span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_default_exchange'>default_exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_service_name'>service_name</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="start-instance_method">
+  
+    - (<tt>Object</tt>) <strong>start</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>start the service</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 124</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@state</span> <span class='op'>!=</span> <span class='symbol'>:stopped</span>
+
+  <span class='const'>Service</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:ampq_uri</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:threadpool_size</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>do</span>
+
+    <span class='ivar'>@channel</span> <span class='op'>=</span> <span class='const'>AMQP</span><span class='op'>::</span><span class='const'>Channel</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='cvar'>@@connection</span><span class='rparen'>)</span>
+
+    <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_on_error'>on_error</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ch'>ch</span><span class='comma'>,</span> <span class='id identifier rubyid_channel_close'>channel_close</span><span class='op'>|</span>
+      <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Channel exception: [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_channel_close'>channel_close</span><span class='period'>.</span><span class='id identifier rubyid_reply_code'>reply_code</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_channel_close'>channel_close</span><span class='period'>.</span><span class='id identifier rubyid_reply_text'>reply_text</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_message'>message</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_message'>message</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_prefetch'>prefetch</span><span class='lparen'>(</span><span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:prefetch</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_auto_recovery'>auto_recovery</span> <span class='op'>=</span> <span class='kw'>true</span>
+
+    <span class='ivar'>@service_queue</span> <span class='op'>=</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_queue'>queue</span><span class='lparen'>(</span> <span class='ivar'>@service_queue_name</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:durable</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='ivar'>@service_queue</span><span class='period'>.</span><span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:ack</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_metadata'>metadata</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='op'>|</span>
+      <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='const'>MessagePack</span><span class='period'>.</span><span class='id identifier rubyid_unpack'>unpack</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_process_service_queue_message'>process_service_queue_message</span><span class='lparen'>(</span><span class='id identifier rubyid_metadata'>metadata</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_response_queue'>response_queue</span> <span class='op'>=</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_queue'>queue</span><span class='lparen'>(</span><span class='ivar'>@response_queue_name</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:exclusive</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:auto_delete</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_response_queue'>response_queue</span><span class='period'>.</span><span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_metadata'>metadata</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='op'>|</span>
+      <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='const'>MessagePack</span><span class='period'>.</span><span class='id identifier rubyid_unpack'>unpack</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_process_response_queue_message'>process_response_queue_message</span><span class='lparen'>(</span><span class='id identifier rubyid_metadata'>metadata</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_default_exchange'>default_exchange</span><span class='period'>.</span><span class='id identifier rubyid_on_return'>on_return</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_basic_return'>basic_return</span><span class='comma'>,</span> <span class='id identifier rubyid_frame'>frame</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='op'>|</span>
+      <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='const'>MessagePack</span><span class='period'>.</span><span class='id identifier rubyid_unpack'>unpack</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_process_returned_message'>process_returned_message</span><span class='lparen'>(</span><span class='id identifier rubyid_basic_return'>basic_return</span><span class='comma'>,</span> <span class='id identifier rubyid_frame'>frame</span><span class='period'>.</span><span class='id identifier rubyid_properties'>properties</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># RESOURCES HANDLE
+</span>    <span class='ivar'>@resources_exchange</span> <span class='op'>=</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_topic'>topic</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>resources.exchange</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:durable</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='ivar'>@resources_exchange</span><span class='period'>.</span><span class='id identifier rubyid_on_return'>on_return</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_basic_return'>basic_return</span><span class='comma'>,</span> <span class='id identifier rubyid_frame'>frame</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='op'>|</span>
+      <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='const'>MessagePack</span><span class='period'>.</span><span class='id identifier rubyid_unpack'>unpack</span><span class='lparen'>(</span><span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_process_returned_message'>process_returned_message</span><span class='lparen'>(</span><span class='id identifier rubyid_basic_return'>basic_return</span><span class='comma'>,</span> <span class='id identifier rubyid_frame'>frame</span><span class='period'>.</span><span class='id identifier rubyid_properties'>properties</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_bound_resources'>bound_resources</span> <span class='op'>=</span> <span class='int'>0</span>
+    <span class='kw'>for</span> <span class='id identifier rubyid_resource_path'>resource_path</span> <span class='kw'>in</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:resource_paths</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_binding_key'>binding_key</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_to_routing_key'>path_to_routing_key</span><span class='lparen'>(</span><span class='id identifier rubyid_resource_path'>resource_path</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>.#</span><span class='tstring_end'>&quot;</span></span>
+      <span class='ivar'>@service_queue</span><span class='period'>.</span><span class='id identifier rubyid_bind'>bind</span><span class='lparen'>(</span><span class='ivar'>@resources_exchange</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_binding_key'>binding_key</span><span class='rparen'>)</span> <span class='lbrace'>{</span>
+        <span class='id identifier rubyid_bound_resources'>bound_resources</span> <span class='op'>+=</span> <span class='int'>1</span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+    <span class='kw'>begin</span>
+      <span class='comment'># simple loop to wait for the resources to be bound
+</span>      <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='float'>0.01</span><span class='rparen'>)</span>
+    <span class='kw'>end</span> <span class='kw'>until</span> <span class='id identifier rubyid_bound_resources'>bound_resources</span> <span class='op'>==</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:resource_paths</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+
+    <span class='ivar'>@state</span> <span class='op'>=</span> <span class='symbol'>:started</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="stop-instance_method">
+  
+    - (<tt>Object</tt>) <strong>stop</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stop the Service</p>
+
+<p>This method:</p>
+<ul><li>
+<p>Stops receiving new messages</p>
+</li><li>
+<p>waits for processing incoming and outgoing messages to be completed</p>
+</li><li>
+<p>close the channel</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 187</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_stop'>stop</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@state</span> <span class='op'>!=</span> <span class='symbol'>:started</span>
+  <span class='comment'># stop receiving new incoming messages
+</span>  <span class='ivar'>@service_queue</span><span class='period'>.</span><span class='id identifier rubyid_unsubscribe'>unsubscribe</span>
+  <span class='comment'># only stop the service if all incoming and outgoing messages are complete
+</span>  <span class='id identifier rubyid_decisecond_timeout'>decisecond_timeout</span> <span class='op'>=</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:timeout</span><span class='rbracket'>]</span><span class='op'>/</span><span class='int'>100</span>
+  <span class='id identifier rubyid_waited_deciseconds'>waited_deciseconds</span> <span class='op'>=</span> <span class='int'>0</span> <span class='comment'># guarantee that this loop will stop
+</span>  <span class='kw'>while</span> <span class='lparen'>(</span><span class='ivar'>@transactions</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='op'>||</span> <span class='ivar'>@processing_messages</span> <span class='op'>&gt;</span> <span class='int'>0</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_waited_deciseconds'>waited_deciseconds</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_decisecond_timeout'>decisecond_timeout</span>
+    <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='float'>0.1</span><span class='rparen'>)</span> <span class='comment'># wait a decisecond to check the incoming and outgoing messages again
+</span>    <span class='id identifier rubyid_waited_deciseconds'>waited_deciseconds</span> <span class='op'>+=</span> <span class='int'>1</span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+  <span class='ivar'>@state</span> <span class='op'>=</span> <span class='symbol'>:stopped</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_s-instance_method">
+  
+    - (<tt>Object</tt>) <strong>to_s</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>overriding to_s</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AlchemyFlux::Service(</span><span class='embexpr_beg'>#{</span><span class='ivar'>@name</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>, </span><span class='embexpr_beg'>#{</span><span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Fri Jan  8 13:46:26 2016 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.1.5).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,47 @@
+PATH
+  remote: .
+  specs:
+    alchemy-flux (0.0.1)
+      amqp (= 1.5.1)
+      eventmachine (= 1.0.8)
+      msgpack (= 0.7.1)
+      rack (= 1.6.4)
+      uuidtools (= 2.1.5)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    amq-protocol (1.9.2)
+    amqp (1.5.1)
+      amq-protocol (~> 1.9)
+      eventmachine
+    diff-lcs (1.2.5)
+    eventmachine (1.0.8)
+    msgpack (0.7.1)
+    rack (1.6.4)
+    rake (10.3.2)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.1)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
+    uuidtools (2.1.5)
+    yard (0.8.7.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  alchemy-flux!
+  rake (= 10.3.2)
+  rspec (= 3.4.0)
+  rspec-mocks (= 3.4.0)
+  yard (= 0.8.7.6)
