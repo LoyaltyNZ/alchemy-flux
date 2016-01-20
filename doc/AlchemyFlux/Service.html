@@ -352,7 +352,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#send_message_on_default_exchange-instance_method" title="#send_message_on_default_exchange (instance method)">- (Object) <strong>send_message_on_default_exchange</strong>(routing_key, message, options = {}) </a>
+      <a href="#send_message_to_queue-instance_method" title="#send_message_to_queue (instance method)">- (Object) <strong>send_message_to_queue</strong>(routing_key, message) </a>
     
 
     
@@ -367,7 +367,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>send a message to the default exchange with routing key.</p>
+<p>send a message to queue do not wait for response.</p>
 </div></span>
   
 </li>
@@ -376,7 +376,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#send_message_to_resource-instance_method" title="#send_message_to_resource (instance method)">- (Object) <strong>send_message_to_resource</strong>(message) </a>
+      <a href="#send_message_to_resource-instance_method" title="#send_message_to_resource (instance method)">- (Object) <strong>send_message_to_resource</strong>(http_message) </a>
     
 
     
@@ -956,9 +956,9 @@ but all the callbacks will be executed in the EM thread</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="send_message_on_default_exchange-instance_method">
+  <h3 class="signature " id="send_message_to_queue-instance_method">
   
-    - (<tt>Object</tt>) <strong>send_message_on_default_exchange</strong>(routing_key, message, options = {}) 
+    - (<tt>Object</tt>) <strong>send_message_to_queue</strong>(routing_key, message) 
   
 
   
@@ -967,7 +967,7 @@ but all the callbacks will be executed in the EM thread</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>send a message to the default exchange with routing key</p>
+<p>send a message to queue do not wait for response</p>
 <dl class="rdoc-list note-list"><dt><strong>routing_key</strong>
 <dd>
 <p>The routing key to use</p>
@@ -998,8 +998,8 @@ but all the callbacks will be executed in the EM thread</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 309</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_send_message_on_default_exchange'>send_message_on_default_exchange</span><span class='lparen'>(</span><span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_send_message'>send_message</span><span class='lparen'>(</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_default_exchange'>default_exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_send_message_to_queue'>send_message_to_queue</span><span class='lparen'>(</span><span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_send_message'>send_message</span><span class='lparen'>(</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_default_exchange'>default_exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ignore</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span> <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1009,7 +1009,7 @@ but all the callbacks will be executed in the EM thread</p>
       <div class="method_details ">
   <h3 class="signature " id="send_message_to_resource-instance_method">
   
-    - (<tt>Object</tt>) <strong>send_message_to_resource</strong>(message) 
+    - (<tt>Object</tt>) <strong>send_message_to_resource</strong>(http_message) 
   
 
   
@@ -1019,7 +1019,7 @@ but all the callbacks will be executed in the EM thread</p>
   <div class="discussion">
     
 <p>send a message to a resource</p>
-<dl class="rdoc-list note-list"><dt><strong>message</strong>
+<dl class="rdoc-list note-list"><dt><strong>http_message</strong>
 <dd>
 <p>the message to be sent to the <strong>path</strong> in the message</p>
 </dd></dl>
@@ -1053,14 +1053,14 @@ asynchronously and yielded the response</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 334</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_send_message_to_resource'>send_message_to_resource</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_routing_key'>routing_key</span> <span class='op'>=</span> <span class='id identifier rubyid_path_to_routing_key'>path_to_routing_key</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_send_message_to_resource'>send_message_to_resource</span><span class='lparen'>(</span><span class='id identifier rubyid_http_message'>http_message</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_routing_key'>routing_key</span> <span class='op'>=</span> <span class='id identifier rubyid_path_to_routing_key'>path_to_routing_key</span><span class='lparen'>(</span><span class='id identifier rubyid_http_message'>http_message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
     <span class='const'>EventMachine</span><span class='period'>.</span><span class='id identifier rubyid_defer'>defer</span> <span class='kw'>do</span>
-      <span class='kw'>yield</span> <span class='id identifier rubyid_send_message_to_resource'>send_message_to_resource</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+      <span class='kw'>yield</span> <span class='id identifier rubyid_send_message_to_resource'>send_message_to_resource</span><span class='lparen'>(</span><span class='id identifier rubyid_http_message'>http_message</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_send_HTTP_request_message'>send_HTTP_request_message</span><span class='lparen'>(</span><span class='ivar'>@resources_exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_send_HTTP_request_message'>send_HTTP_request_message</span><span class='lparen'>(</span><span class='ivar'>@resources_exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_http_message'>http_message</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1398,7 +1398,7 @@ asynchronously and yielded the response</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Jan 20 16:39:03 2016 by
+  Generated on Thu Jan 21 10:09:51 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>
