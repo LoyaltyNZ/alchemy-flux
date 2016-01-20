@@ -10,7 +10,7 @@ describe Rack::Handler::AlchemyFlux do
   describe "#start" do
 
     it 'should be able to start with a simple rack app' do
-      ENV['SERVICE_NAME'] = 'rack.service'
+      ENV['ALCHEMY_SERVICE_NAME'] = 'rack.service'
       app = Proc.new do |env|
         ['200', {}, ['hi Bob']]
       end
@@ -25,9 +25,9 @@ describe Rack::Handler::AlchemyFlux do
       Rack::Handler::AlchemyFlux.stop
     end
 
-    it 'should register resources with RESOURCE_PATHS env variable' do
-      ENV['SERVICE_NAME'] = 'rack.service'
-      ENV['RESOURCE_PATHS'] = '/alice,/bob'
+    it 'should register resources with ALCHEMY_RESOURCE_PATHS env variable' do
+      ENV['ALCHEMY_SERVICE_NAME'] = 'rack.service'
+      ENV['ALCHEMY_RESOURCE_PATHS'] = '/alice,/bob'
       app = Proc.new do |env|
         ['200', {}, ["hi #{env['PATH_INFO']}"]]
       end

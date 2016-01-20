@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    alchemy-flux (0.0.1)
-      amqp (= 1.5.1)
-      eventmachine (= 1.0.8)
-      msgpack (= 0.7.1)
+    alchemy-flux (0.0.2)
+      amqp (~> 1.5)
+      eventmachine (~> 1.0)
+      msgpack (~> 0.7)
       rack (= 1.6.4)
-      uuidtools (= 2.1.5)
+      uuidtools (~> 2.1)
 
 GEM
   remote: https://rubygems.org/
@@ -16,10 +16,10 @@ GEM
       amq-protocol (~> 1.9)
       eventmachine
     diff-lcs (1.2.5)
-    eventmachine (1.0.8)
-    msgpack (0.7.1)
+    eventmachine (1.0.9.1)
+    msgpack (0.7.4)
     rack (1.6.4)
-    rake (10.3.2)
+    rake (10.5.0)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -41,7 +41,10 @@ PLATFORMS
 
 DEPENDENCIES
   alchemy-flux!
-  rake (= 10.3.2)
-  rspec (= 3.4.0)
-  rspec-mocks (= 3.4.0)
+  rake (~> 10.4)
+  rspec (~> 3.4)
+  rspec-mocks (~> 3.4)
   yard (= 0.8.7.6)
+
+BUNDLED WITH
+   1.10.6
