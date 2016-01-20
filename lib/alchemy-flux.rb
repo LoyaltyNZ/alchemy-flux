@@ -214,7 +214,6 @@ module AlchemyFlux
       message_replying_to = metadata.message_id
       this_message_id = AlchemyFlux::Service.generateUUID()
       delivery_tag = metadata.delivery_tag
-      interaction_id = payload['headers']['x-interaction-id']
 
       operation = proc {
         @processing_messages += 1
@@ -222,7 +221,6 @@ module AlchemyFlux
           response = @service_fn.call(payload)
           {
             'status_code' => response['status_code'] || 200,
-            'headers' => response['headers']         || { 'x-interaction-id' => interaction_id},
             'body' => response['body']               || ""
           }
         rescue AlchemyFlux::NAckError => e
@@ -238,7 +236,6 @@ module AlchemyFlux
               'kind' =>           "Errors",
               'id' =>             AlchemyFlux::Service.generateUUID(),
               'created_at' =>     Time.now.utc.iso8601,
-              'interaction_id' => interaction_id,
               'errors' => [{'code' => 'platform.fault', 'message' => 'An unexpected error occurred'}]
             }
           }
@@ -284,9 +281,9 @@ module AlchemyFlux
 
     # END OF RECIEVING MESSAGES
 
-    public
-
     # SENDING MESSAGES
+
+    private
 
     # send a message to an exchange with routing key
     #
@@ -300,6 +297,17 @@ module AlchemyFlux
       EventMachine.next_tick do
         exchange.publish message, message_options
       end
+    end
+
+    public
+
+    # send a message to queue do not wait for response
+    #
+    # *routing_key*:: The routing key to use
+    # *message*:: The message to be sent
+    # *options*:: The message options
+    def send_message_to_queue(routing_key, message)
+      send_message( @channel.default_exchange, routing_key, message, {type: 'ignore'} )
     end
 
     # send a message to a service
@@ -320,17 +328,17 @@ module AlchemyFlux
 
     # send a message to a resource
     #
-    # *message*:: the message to be sent to the *path* in the message
+    # *http_message*:: the message to be sent to the *path* in the message
     #
     # This method can optionally take a block which will be executed asynchronously and yielded the response
-    def send_message_to_resource(message)
-      routing_key = path_to_routing_key(message['path'])
+    def send_message_to_resource(http_message)
+      routing_key = path_to_routing_key(http_message['path'])
       if block_given?
         EventMachine.defer do
-          yield send_message_to_resource(message)
+          yield send_message_to_resource(http_message)
         end
       else
-        send_HTTP_request_message(@resources_exchange, routing_key, message)
+        send_HTTP_request_message(@resources_exchange, routing_key, http_message)
       end
     end
 
@@ -372,10 +380,6 @@ module AlchemyFlux
         'headers' =>     message['headers']     || {},
         'body' =>        message['body']        || ""
       }
-
-      if !http_message['headers']['x-interaction-id']
-        http_message['headers']['x-interaction-id'] = AlchemyFlux::Service.generateUUID()
-      end
 
       message_id = AlchemyFlux::Service.generateUUID()
 
