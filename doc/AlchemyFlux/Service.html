@@ -991,12 +991,12 @@ but all the callbacks will be executed in the EM thread</p>
       <pre class="lines">
 
 
-313
-314
-315</pre>
+309
+310
+311</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 313</span>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 309</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_send_message_on_default_exchange'>send_message_on_default_exchange</span><span class='lparen'>(</span><span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_send_message'>send_message</span><span class='lparen'>(</span> <span class='ivar'>@channel</span><span class='period'>.</span><span class='id identifier rubyid_default_exchange'>default_exchange</span><span class='comma'>,</span> <span class='id identifier rubyid_routing_key'>routing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='rparen'>)</span>
@@ -1039,19 +1039,19 @@ asynchronously and yielded the response</p>
       <pre class="lines">
 
 
+334
+335
+336
+337
 338
 339
 340
 341
 342
-343
-344
-345
-346
-347</pre>
+343</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 338</span>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 334</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_send_message_to_resource'>send_message_to_resource</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_routing_key'>routing_key</span> <span class='op'>=</span> <span class='id identifier rubyid_path_to_routing_key'>path_to_routing_key</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1104,18 +1104,18 @@ asynchronously and yielded the response</p>
       <pre class="lines">
 
 
+319
+320
+321
+322
 323
 324
 325
 326
-327
-328
-329
-330
-331</pre>
+327</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 323</span>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux.rb', line 319</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_send_message_to_service'>send_message_to_service</span><span class='lparen'>(</span><span class='id identifier rubyid_service_name'>service_name</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1398,7 +1398,7 @@ asynchronously and yielded the response</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Jan 20 16:24:39 2016 by
+  Generated on Wed Jan 20 16:39:03 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>
