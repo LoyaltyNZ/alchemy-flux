@@ -35,15 +35,15 @@ module Rack
 
       # start the service for rack
       def self.start(app)
-        service_name = ENV['SERVICE_NAME']
-        raise RuntimeError.new("Require SERVICE_NAME environment variable") if !service_name
+        service_name = ENV['ALCHEMY_SERVICE_NAME']
+        raise RuntimeError.new("Require ALCHEMY_SERVICE_NAME environment variable") if !service_name
 
         options = {
           ampq_uri: ENV['AMQ_URI'] || 'amqp://localhost',
           prefetch: ENV['PREFETCH'] || 20,
           timeout: ENV['TIMEOUT'] || 30000,
           threadpool_size: ENV['THREADPOOL_SIZE'] || 500,
-          resource_paths: (ENV['RESOURCE_PATHS'] || '').split(',')
+          resource_paths: (ENV['ALCHEMY_RESOURCE_PATHS'] || '').split(',')
         }
 
         if options[:prefetch] > options[:threadpool_size]
