@@ -214,8 +214,6 @@ module AlchemyFlux
       message_replying_to = metadata.message_id
       this_message_id = AlchemyFlux::Service.generateUUID()
       delivery_tag = metadata.delivery_tag
-      interaction_id = nil
-      interaction_id = payload['headers']['x-interaction-id'] if payload['headers']
 
       operation = proc {
         @processing_messages += 1
@@ -223,7 +221,6 @@ module AlchemyFlux
           response = @service_fn.call(payload)
           {
             'status_code' => response['status_code'] || 200,
-            'headers' => response['headers']         || { 'x-interaction-id' => interaction_id},
             'body' => response['body']               || ""
           }
         rescue AlchemyFlux::NAckError => e
@@ -239,7 +236,6 @@ module AlchemyFlux
               'kind' =>           "Errors",
               'id' =>             AlchemyFlux::Service.generateUUID(),
               'created_at' =>     Time.now.utc.iso8601,
-              'interaction_id' => interaction_id,
               'errors' => [{'code' => 'platform.fault', 'message' => 'An unexpected error occurred'}]
             }
           }
@@ -384,10 +380,6 @@ module AlchemyFlux
         'headers' =>     message['headers']     || {},
         'body' =>        message['body']        || ""
       }
-
-      if !http_message['headers']['x-interaction-id']
-        http_message['headers']['x-interaction-id'] = AlchemyFlux::Service.generateUUID()
-      end
 
       message_id = AlchemyFlux::Service.generateUUID()
 

@@ -292,49 +292,7 @@ describe AlchemyFlux::Service do
       service_b.stop
     end
 
-    it 'should generate transaction id if none is given' do
-      interaction_id = nil
-      service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
-        expect(message['headers']).to have_key 'x-interaction-id'
-        expect(message['headers']['x-interaction-id']).not_to be_nil
-        interaction_id = message['headers']['x-interaction-id']
-        { 'body' => "here" }
-      end
 
-      service_b = AlchemyFlux::Service.new("fluxb.service")
-
-      service_a.start
-      service_b.start
-
-      response = service_b.send_message_to_service("fluxa.service", {})
-      expect(response['body']).to eq "here"
-      expect(response['headers']).to have_key 'x-interaction-id'
-      expect(response['headers']['x-interaction-id']).not_to be_nil
-      expect(response['headers']['x-interaction-id']).to eq interaction_id
-      service_a.stop
-      service_b.stop
-    end
-
-    it 'should use given transaction id if one is provided' do
-      interaction_id = 'a123'
-      service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
-        expect(message['headers']['x-interaction-id']).to eq interaction_id
-        { 'body' => "here" }
-      end
-
-      service_b = AlchemyFlux::Service.new("fluxb.service")
-
-      service_a.start
-      service_b.start
-
-      response = service_b.send_message_to_service("fluxa.service", {
-        'headers' => {'x-interaction-id' => interaction_id}
-      })
-      expect(response['body']).to eq "here"
-      expect(response['headers']['x-interaction-id']).to eq interaction_id
-      service_a.stop
-      service_b.stop
-    end
 
     it 'should add to transactions and processing messages, and remove once complete' do
       service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
