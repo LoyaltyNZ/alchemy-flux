@@ -214,7 +214,8 @@ module AlchemyFlux
       message_replying_to = metadata.message_id
       this_message_id = AlchemyFlux::Service.generateUUID()
       delivery_tag = metadata.delivery_tag
-      interaction_id = payload['headers']['x-interaction-id']
+      interaction_id = nil
+      interaction_id = payload['headers']['x-interaction-id'] if payload['headers']
 
       operation = proc {
         @processing_messages += 1
@@ -284,9 +285,9 @@ module AlchemyFlux
 
     # END OF RECIEVING MESSAGES
 
-    public
-
     # SENDING MESSAGES
+
+    private
 
     # send a message to an exchange with routing key
     #
@@ -300,6 +301,17 @@ module AlchemyFlux
       EventMachine.next_tick do
         exchange.publish message, message_options
       end
+    end
+
+    public
+
+    # send a message to the default exchange with routing key
+    #
+    # *routing_key*:: The routing key to use
+    # *message*:: The message to be sent
+    # *options*:: The message options
+    def send_message_on_default_exchange(routing_key, message, options = {})
+      send_message( @channel.default_exchange, routing_key, message, options )
     end
 
     # send a message to a service
