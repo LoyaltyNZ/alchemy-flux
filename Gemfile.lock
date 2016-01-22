@@ -1,11 +1,11 @@
 PATH
   remote: .
   specs:
-    alchemy-flux (0.0.3)
+    alchemy-flux (0.0.4)
       amqp (~> 1.5)
       eventmachine (~> 1.0)
       msgpack (~> 0.7)
-      rack (= 1.6.4)
+      rack (~> 1.6)
       uuidtools (~> 2.1)
 
 GEM
@@ -44,7 +44,7 @@ DEPENDENCIES
   rake (~> 10.4)
   rspec (~> 3.4)
   rspec-mocks (~> 3.4)
-  yard (= 0.8.7.6)
+  yard (~> 0.8)
 
 BUNDLED WITH
    1.10.6
