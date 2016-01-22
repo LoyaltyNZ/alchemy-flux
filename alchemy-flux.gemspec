@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'alchemy-flux'
-  s.version     = '0.0.3'
+  s.version     = '0.0.4'
   s.summary     = "Ruby implementation of the Alchemy micro-service framework"
   s.description = "Ruby implementation of the Alchemy micro-service framework"
   s.authors     = [ 'Loyalty New Zealand']
@@ -15,8 +15,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec", '~> 3.4'
   s.add_development_dependency "rspec-mocks", '~> 3.4'
   s.add_development_dependency "rake", '~> 10.4'
-  s.add_development_dependency "yard", '0.8.7.6'
-  s.add_runtime_dependency 'rack', '1.6.4'
+  s.add_development_dependency "yard", '~> 0.8'
+  s.add_runtime_dependency 'rack', '~> 1.6'
   s.add_runtime_dependency 'eventmachine', '~> 1.0'
   s.add_runtime_dependency 'amqp', '~> 1.5'
   s.add_runtime_dependency 'uuidtools', '~> 2.1'
