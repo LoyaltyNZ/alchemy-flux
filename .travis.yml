@@ -4,7 +4,7 @@ services:
 language: ruby
 cache: bundler
 
-script: bundle exec rspec --format documentation
+script: bundle exec rspec --profile --format documentation
 rvm:
   - 2.1.8
   - 2.2.4
