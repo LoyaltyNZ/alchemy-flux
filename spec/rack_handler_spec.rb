@@ -15,10 +15,10 @@ describe Rack::Handler::AlchemyFlux do
         ['200', {}, ['hi Bob']]
       end
 
-      service_a = AlchemyFlux::Service.new("fluxa.service")
+      service_a = AlchemyFlux::Service.new("fluxa.service", :timeout => 200)
       Rack::Handler::AlchemyFlux.start app
       service_a.start
-
+      sleep(0.5)
       response = service_a.send_message_to_service("rack.service", {})
       expect(response['body']).to eq "hi Bob"
       service_a.stop
@@ -32,10 +32,11 @@ describe Rack::Handler::AlchemyFlux do
         ['200', {}, ["hi #{env['PATH_INFO']}"]]
       end
 
-      service_a = AlchemyFlux::Service.new("fluxa.service", :timeout => 100)
+      service_a = AlchemyFlux::Service.new("fluxa.service", :timeout => 200)
       Rack::Handler::AlchemyFlux.start app
 
       service_a.start
+      sleep(0.5)
 
       response = service_a.send_message_to_resource({'path' => '/alice'})
       expect(response['body']).to eq "hi /alice"
