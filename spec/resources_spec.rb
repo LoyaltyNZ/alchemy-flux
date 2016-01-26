@@ -11,20 +11,23 @@ describe AlchemyFlux::Service do
 
     it 'should be able to send messages to resource via path' do
       resource_path = "/v1/fluxy_#{AlchemyFlux::Service.generateUUID()}"
-      service_a = AlchemyFlux::Service.new("fluxa.service", resource_paths: [resource_path]) do |message|
+      service_a = AlchemyFlux::Service.new("fluxa.send_service", resource_paths: [resource_path], :timeout => 200) do |message|
         {'body' => "hi #{message['body']['name']}"}
       end
 
-      service_b = AlchemyFlux::Service.new("fluxb.service")
+      service_b = AlchemyFlux::Service.new("fluxb.send_service")
 
       service_a.start
       service_b.start
+
+      sleep(1)
 
       response = service_b.send_message_to_resource({'path' => resource_path, 'body' => {'name' => "Bob"}})
       expect(response['body']).to eq "hi Bob"
 
       response = service_b.send_message_to_resource({'path' => "#{resource_path}/id", 'body' => {'name' => "Alice"}})
       expect(response['body']).to eq "hi Alice"
+
       service_a.stop
       service_b.stop
     end
@@ -32,14 +35,16 @@ describe AlchemyFlux::Service do
     it 'should be able to register multiple resources' do
       resource_path1 = "/v1/fluxy_#{AlchemyFlux::Service.generateUUID()}"
       resource_path2 = "/v1/fluxy_#{AlchemyFlux::Service.generateUUID()}"
-      service_a = AlchemyFlux::Service.new("fluxa.service", resource_paths: [resource_path1, resource_path2]) do |message|
+      service_a = AlchemyFlux::Service.new("fluxa.send_service1", resource_paths: [resource_path1, resource_path2], :timeout => 200) do |message|
         {'body' => "hi #{message['body']['name']}"}
       end
 
-      service_b = AlchemyFlux::Service.new("fluxb.service")
+      service_b = AlchemyFlux::Service.new("fluxb.send_service1")
 
       service_a.start
       service_b.start
+
+      sleep(1)
 
       response = service_b.send_message_to_resource({'path' => resource_path1, 'body' => {'name' => "Bob"}})
       expect(response['body']).to eq "hi Bob"
@@ -53,7 +58,7 @@ describe AlchemyFlux::Service do
 
     describe 'unhappy path' do
       it 'should return error on a message to non existant service' do
-        service_b = AlchemyFlux::Service.new("fluxb.service")
+        service_b = AlchemyFlux::Service.new("fluxb.send_service3", :timeout => 200)
 
         service_b.start
 

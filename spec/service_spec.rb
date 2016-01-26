@@ -150,7 +150,7 @@ describe AlchemyFlux::Service do
         {'body' => "hello"}
       end
 
-      service_b = AlchemyFlux::Service.new("fluxb.service")
+      service_b = AlchemyFlux::Service.new("fluxb.service", :timeout => 1000)
 
       service_a.start
       service_b.start
