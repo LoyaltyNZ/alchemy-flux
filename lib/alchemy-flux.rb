@@ -221,7 +221,8 @@ module AlchemyFlux
           response = @service_fn.call(payload)
           {
             'status_code' => response['status_code'] || 200,
-            'body' => response['body']               || ""
+            'body'        => response['body']        || "",
+            'headers'     => response['headers']     || {}
           }
         rescue AlchemyFlux::NAckError => e
           AlchemyFlux::NAckError

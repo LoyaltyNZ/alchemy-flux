@@ -250,6 +250,48 @@ describe AlchemyFlux::Service do
       service_b.stop
     end
 
+    it 'can alter headers' do
+      service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
+        body = JSON.parse(message['body'])
+        {
+          'body' => "hi #{body['name']}",
+          'headers' => {"X-header" => "header1"}
+        }
+      end
+
+      service_b = AlchemyFlux::Service.new("fluxb.service")
+
+      service_a.start
+      service_b.start
+
+      response = service_b.send_message_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
+      expect(response['body']).to eq "hi Bob"
+      expect(response['headers']["X-header"]).to eq "header1"
+      service_a.stop
+      service_b.stop
+    end
+
+    it 'can alter status_code' do
+      service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
+        body = JSON.parse(message['body'])
+        {
+          'body' => "hi #{body['name']}",
+          'status_code' => 201
+        }
+      end
+
+      service_b = AlchemyFlux::Service.new("fluxb.service")
+
+      service_a.start
+      service_b.start
+
+      response = service_b.send_message_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
+      expect(response['body']).to eq "hi Bob"
+      expect(response['status_code']).to eq 201
+      service_a.stop
+      service_b.stop
+    end
+
     it 'should be able to send messages within the service call' do
       service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
         resp = service_a.send_message_to_service("fluxb.service", {})
