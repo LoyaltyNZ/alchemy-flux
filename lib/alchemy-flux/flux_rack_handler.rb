@@ -40,9 +40,9 @@ module Rack
 
         options = {
           ampq_uri: ENV['AMQ_URI'] || 'amqp://localhost',
-          prefetch: ENV['PREFETCH'] || 20,
-          timeout: ENV['TIMEOUT'] || 30000,
-          threadpool_size: ENV['THREADPOOL_SIZE'] || 500,
+          prefetch: (ENV['PREFETCH'] || 20).to_i,
+          timeout: (ENV['TIMEOUT'] || 30000).to_i,
+          threadpool_size: (ENV['THREADPOOL_SIZE'] || 500).to_i,
           resource_paths: (ENV['ALCHEMY_RESOURCE_PATHS'] || '').split(',')
         }
 
