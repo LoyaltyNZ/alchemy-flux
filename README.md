@@ -64,11 +64,11 @@ service_a.start
 service_b.start
 
 # Synchronous message
-response = service_a1.send_message_to_service("B", {'body' => "Alice"})
+response = service_a1.send_request_to_service("B", {'body' => "Alice"})
 puts response['body'] # Hello Alice
 
 # Asynchronous message
-service_a1.send_message_to_service("B", {'body' => "Bob"}) do |response|
+service_a1.send_request_to_service("B", {'body' => "Bob"}) do |response|
   puts response['body'] # Hello Bob
 end
 

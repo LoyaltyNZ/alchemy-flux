@@ -22,7 +22,7 @@ describe "performance of AlchemyFlux" do
     responses = Queue.new
     st = Time.now()
     (1..calls).each do
-      service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}}) do |response|
+      service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}}) do |response|
         responses << response
       end
     end
@@ -51,7 +51,7 @@ describe "performance of AlchemyFlux" do
 
     st = Time.now()
     (1..calls).each do
-      resp = service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
+      resp = service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
       expect(resp['body']).to eq "hola Bob"
     end
 

@@ -238,7 +238,8 @@ module AlchemyFlux
               'created_at' =>     Time.now.utc.iso8601,
               'errors' => [{
                 'code' => 'alchemy-flux.error',
-                'message' => 'An unexpected error occurred'
+                'message' => 'An unexpected error occurred',
+                'message_id' => message_replying_to
               }]
             }
           }
@@ -250,12 +251,16 @@ module AlchemyFlux
         if result == AlchemyFlux::NAckError
           @service_queue.reject(delivery_tag)
         else
-          options = {
-            :message_id     => this_message_id,
-            :correlation_id => message_replying_to,
-            :type           =>    'http_response'
-          }
-          send_message(@channel.default_exchange, service_to_reply_to, result, options)
+          #if there is a service to reply to then reply, else ignore
+
+          if service_to_reply_to
+            send_message(@channel.default_exchange, service_to_reply_to, result, {
+              :message_id     => this_message_id,
+              :correlation_id => message_replying_to,
+              :type           =>    'http_response'
+            })
+          end
+
           @processing_messages -= 1
           @service_queue.acknowledge(delivery_tag)
         end
@@ -304,44 +309,51 @@ module AlchemyFlux
 
     public
 
-    # send a message to queue do not wait for response
+    # send a message to a service, this does not wait for a response
     #
-    # *routing_key*:: The routing key to use
+    # *service_name*:: The name of the service
     # *message*:: The message to be sent
-    # *options*:: The message options
-    def send_message_to_queue(routing_key, message)
-      send_message( @channel.default_exchange, routing_key, message, {type: 'ignore'} )
+    def send_message_to_service(service_name, message)
+      send_HTTP_message(@channel.default_exchange, service_name, message)
     end
 
-    # send a message to a service
+    # send a message to a resource, this does not wait for a response
+    #
+    # *message*:: HTTP formatted message to be sent, must contain `'path'` key with URL path
+    def send_message_to_resource(message)
+      routing_key = path_to_routing_key(message['path'])
+      send_HTTP_message(@resources_exchange, routing_key, message)
+    end
+
+    # send a request to a service, this will wait for a response
     #
     # *service_name*:: the name of the service
     # *message*:: the message to be sent
     #
     # This method can optionally take a block which will be executed asynchronously and yielded the response
-    def send_message_to_service(service_name, message)
+    def send_request_to_service(service_name, message)
       if block_given?
         EventMachine.defer do
-          yield send_message_to_service(service_name, message)
+          yield send_request_to_service(service_name, message)
         end
       else
-        send_HTTP_request_message(@channel.default_exchange, service_name, message)
+        send_HTTP_request(@channel.default_exchange, service_name, message)
       end
     end
 
     # send a message to a resource
     #
-    # *http_message*:: the message to be sent to the *path* in the message
+    # *message*:: HTTP formatted message to be sent, must contain `'path'` key with URL path
     #
     # This method can optionally take a block which will be executed asynchronously and yielded the response
-    def send_message_to_resource(http_message)
-      routing_key = path_to_routing_key(http_message['path'])
+    def send_request_to_resource(message)
+      routing_key = path_to_routing_key(message['path'])
       if block_given?
         EventMachine.defer do
-          yield send_message_to_resource(http_message)
+          yield send_request_to_resource(message)
         end
       else
-        send_HTTP_request_message(@resources_exchange, routing_key, http_message)
+        send_HTTP_request(@resources_exchange, routing_key, message)
       end
     end
 
@@ -365,36 +377,89 @@ module AlchemyFlux
       new_path
     end
 
+    # format the HTTP message
+    #
+    # This format is defined by Alchemy framework HTTP message
+    #
+    # The entire body will be a JSON string with the keys:
+    #
+    # Keys for
+    #
+    # 1. *body*: A string of body information
+    # 2. *verb*: The HTTP verb for the query, e.g. GET
+    # 3. *headers*: an object with headers in is, e.g. {"X-HEADER-KEY": "value"}
+    # 4. *path*: the path of the request, e.g. "/v1/users/1337"
+    # 5. *query*: an object with keys for query, e.g. {'search': 'flux'}
+    #
+    # 1. *scheme*: the scheme used for the call
+    # 2. *host*: the host called to make the call
+    # 3. *port*: the port the call was made on
+    #
+    # Custom keys for authentication
+    #
+    # 1. *session*: undefined structure that can be passed in the message
+    # so that a service does not need to re-authenticate with each message
+    # 2. *session_id*: identifier for session
+    #
+    def format_HTTP_message(message)
+      {
+        # Request Parameters
+        'body' =>        message['body']        || "",
+        'verb' =>        message['verb']        || "GET",
+        'headers' =>     message['headers']     || {},
+        'path' =>        message['path']        || "/",
+        'query' =>       message['query']       || {},
+
+        # Location
+        'scheme' =>      message['protocol']    || 'http',
+        'host' =>        message['hostname']    || 'localhost',
+        'port' =>        message['port']        || 8080,
+
+        # Custom Authentication
+        'session'    =>  message['session'],
+        'session_id' =>  message['session_id']
+      }
+    end
+
     # send a HTTP message to an exchange with routing key
     #
     # *exchange*:: A AMQP exchange
     # *routing_key*:: The routing key to use
     # *message*:: The message to be sent
-    def send_HTTP_request_message(exchange, routing_key, message)
+    def send_HTTP_message(exchange, routing_key, message)
+      http_message = format_HTTP_message(message)
 
-      http_message = {
-        'session'    =>  message['session'],
-        'session_id' =>  message['session_id'],
-        'scheme' =>      message['protocol']    || 'http',
-        'host' =>        message['hostname']    || 'localhost',
-        'port' =>        message['port']        || 8080,
-        'path' =>        message['path']        || "/",
-        'query' =>       message['query']       || {},
-        'verb' =>        message['verb']        || "GET",
-        'headers' =>     message['headers']     || {},
-        'body' =>        message['body']        || ""
+      http_message_options = {
+        message_id:          AlchemyFlux::Service.generateUUID(),
+        type:               'http',
+        content_encoding:   '8bit',
+        content_type:       'application/json',
+        expiration:          @options[:timeout]
       }
+
+      send_message(exchange, routing_key, http_message, http_message_options)
+    end
+
+
+
+    # send a HTTP message to an exchange with routing key
+    #
+    # *exchange*:: A AMQP exchange
+    # *routing_key*:: The routing key to use
+    # *message*:: The message to be sent
+    def send_HTTP_request(exchange, routing_key, message)
+      http_message = format_HTTP_message(message)
 
       message_id = AlchemyFlux::Service.generateUUID()
 
       http_message_options = {
         message_id:          message_id,
-        type:               'http_request',
+        type:               'http',
         reply_to:            @response_queue_name,
-        content_encoding:    '8bit',
-        content_type:        'application/json',
-        expiration:           @options[:timeout],
-        mandatory:            true
+        content_encoding:   '8bit',
+        content_type:       'application/json',
+        expiration:          @options[:timeout],
+        mandatory:           true
       }
 
       response_queue = Queue.new

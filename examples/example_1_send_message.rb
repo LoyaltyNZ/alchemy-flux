@@ -16,7 +16,7 @@ serviceA1.start()
 serviceB1.start()
 
 # Service A1 sending message to B
-response = serviceA1.send_message_to_service('B', {'body' => 'Alice'})
+response = serviceA1.send_request_to_service('B', {'body' => 'Alice'})
 
 puts response['body'] # "Hello Alice"
 
