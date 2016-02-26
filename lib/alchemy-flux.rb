@@ -1,7 +1,7 @@
 require 'time'
 require 'amqp'
 require "uuidtools"
-require 'msgpack'
+require 'json'
 
 require 'alchemy-flux/flux_rack_handler.rb'
 
@@ -140,25 +140,25 @@ module AlchemyFlux
 
         @service_queue = @channel.queue( @service_queue_name, {:durable => true})
         @service_queue.subscribe({:ack => true}) do |metadata, payload|
-          payload = MessagePack.unpack(payload)
+          payload = JSON.parse(payload)
           process_service_queue_message(metadata, payload)
         end
 
         response_queue = @channel.queue(@response_queue_name, {:exclusive => true, :auto_delete => true})
         response_queue.subscribe({}) do |metadata, payload|
-          payload = MessagePack.unpack(payload)
+          payload = JSON.parse(payload)
           process_response_queue_message(metadata, payload)
         end
 
         @channel.default_exchange.on_return do |basic_return, frame, payload|
-          payload = MessagePack.unpack(payload)
+          payload = JSON.parse(payload)
           process_returned_message(basic_return, frame.properties, payload)
         end
 
         # RESOURCES HANDLE
         @resources_exchange = @channel.topic("resources.exchange", {:durable => true})
         @resources_exchange.on_return do |basic_return, frame, payload|
-          payload = MessagePack.unpack(payload)
+          payload = JSON.parse(payload)
           process_returned_message(basic_return, frame.properties, payload)
         end
 
@@ -229,7 +229,6 @@ module AlchemyFlux
         rescue Exception => e
           puts "Service Fn Error " + e.inspect
 
-          # Returning Hoodoo formatted Error code (just in case service doesnt handle the error, it should!)
           {
             'status_code' => 500,
             'headers' => {'Content-Type' => 'application/json; charset=utf-8'},
@@ -237,7 +236,10 @@ module AlchemyFlux
               'kind' =>           "Errors",
               'id' =>             AlchemyFlux::Service.generateUUID(),
               'created_at' =>     Time.now.utc.iso8601,
-              'errors' => [{'code' => 'platform.fault', 'message' => 'An unexpected error occurred'}]
+              'errors' => [{
+                'code' => 'alchemy-flux.error',
+                'message' => 'An unexpected error occurred'
+              }]
             }
           }
         end
@@ -294,7 +296,7 @@ module AlchemyFlux
     # *options*:: The message options
     def send_message(exchange, routing_key, message, options)
       message_options = options.merge({:routing_key => routing_key})
-      message = MessagePack.pack(message)
+      message = message.to_json
       EventMachine.next_tick do
         exchange.publish message, message_options
       end
@@ -371,6 +373,7 @@ module AlchemyFlux
     def send_HTTP_request_message(exchange, routing_key, message)
 
       http_message = {
+        'session'    =>  message['session'],
         'session_id' =>  message['session_id'],
         'scheme' =>      message['protocol']    || 'http',
         'host' =>        message['hostname']    || 'localhost',
@@ -389,7 +392,7 @@ module AlchemyFlux
         type:               'http_request',
         reply_to:            @response_queue_name,
         content_encoding:    '8bit',
-        content_type:        'application/octet-stream',
+        content_type:        'application/json',
         expiration:           @options[:timeout],
         mandatory:            true
       }

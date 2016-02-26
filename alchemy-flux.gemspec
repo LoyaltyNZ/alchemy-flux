@@ -20,5 +20,4 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'eventmachine', '~> 1.0'
   s.add_runtime_dependency 'amqp', '~> 1.5'
   s.add_runtime_dependency 'uuidtools', '~> 2.1'
-  s.add_runtime_dependency 'msgpack', '~> 0.7'
 end
