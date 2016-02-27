@@ -379,11 +379,9 @@ module AlchemyFlux
 
     # format the HTTP message
     #
-    # This format is defined by Alchemy framework HTTP message
+    # The entire body is a JSON string with the keys:
     #
-    # The entire body will be a JSON string with the keys:
-    #
-    # Keys for
+    # Request Information:
     #
     # 1. *body*: A string of body information
     # 2. *verb*: The HTTP verb for the query, e.g. GET
@@ -391,11 +389,13 @@ module AlchemyFlux
     # 4. *path*: the path of the request, e.g. "/v1/users/1337"
     # 5. *query*: an object with keys for query, e.g. {'search': 'flux'}
     #
+    # Call information:
+    #
     # 1. *scheme*: the scheme used for the call
     # 2. *host*: the host called to make the call
     # 3. *port*: the port the call was made on
     #
-    # Custom keys for authentication
+    # Authentication information:
     #
     # 1. *session*: undefined structure that can be passed in the message
     # so that a service does not need to re-authenticate with each message
@@ -434,7 +434,8 @@ module AlchemyFlux
         type:               'http',
         content_encoding:   '8bit',
         content_type:       'application/json',
-        expiration:          @options[:timeout]
+        expiration:          @options[:timeout],
+        mandatory:           true
       }
 
       send_message(exchange, routing_key, http_message, http_message_options)
