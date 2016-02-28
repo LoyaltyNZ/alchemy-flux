@@ -309,21 +309,6 @@ module AlchemyFlux
 
     public
 
-    # send a message to queue do not wait for response
-    #
-    # *queue_name*:: The routing key to use
-    # *message*:: The message to be sent
-    def send_message_to_queue(queue_name, message)
-      send_message( @channel.default_exchange, queue_name, message, {
-        message_id:          AlchemyFlux::Service.generateUUID(),
-        type:               'ignore',
-        content_encoding:   '8bit',
-        content_type:       'application/json',
-        expiration:          @options[:timeout],
-        mandatory:           true
-      })
-    end
-
     # send a message to a service, this does not wait for a response
     #
     # *service_name*:: The name of the service
