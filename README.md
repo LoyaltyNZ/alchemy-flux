@@ -89,7 +89,7 @@ bundle install
 bundle exec rackup -s alchemy
 ```
 
-The service will now be listening on RabbitMQ for incoming messages, running a router and calling over HTTP, or running another service will now work correctly.
+The service will now be listening on RabbitMQ for incoming messages, running a router and calling over HTTP, or calling directly from another service will be routed to this service.
 
 ## Documentation
 
