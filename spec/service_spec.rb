@@ -192,27 +192,6 @@ describe AlchemyFlux::Service do
     end
   end
 
-  describe "#send_message_to_queue" do
-    it 'should send a message to services' do
-      received = false
-      service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
-        received = true
-        {}
-      end
-
-      service_b = AlchemyFlux::Service.new("fluxb.service")
-
-      service_a.start
-      service_b.start
-
-      service_b.send_message_to_queue("fluxa.service", {})
-      sleep(0.1)
-      expect(received).to be true
-      service_a.stop
-      service_b.stop
-    end
-
-  end
 
   describe "#send_message_to_service" do
     it 'should send a message to services' do
