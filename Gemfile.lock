@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    alchemy-flux (0.1.2)
+    alchemy-flux (1.0.0)
       amqp (~> 1.5)
       eventmachine (~> 1.0)
       rack (~> 1.6)
