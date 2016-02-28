@@ -41,7 +41,55 @@ service_b.stop
 
 ## Rack Implementation
 
-Alchemy Flux comes with an implementation in Rack so that other popular frameworks like Rails or Sinatra can be used with Alchemy. All you need to do is require the `alchemy-flux` gem into a project and run `rackup -s alchemy` to start the server with Alchemy.
+Alchemy Flux comes with an implementation in Rack so that other popular frameworks like Rails or Sinatra can be used with Alchemy. The main configuration is done through environment variables:
+
+1. `ALCHEMY_SERVICE_NAME`: the name of the service. **REQUIRED**
+2. `AMQ_URI`: URL of the RabbitMQ cluster. Default is `'amqp://localhost'`,
+3. `PREFETCH`: the number of messages to prefetch from RabbitMQ and handle concurrently. Default is `20`.
+4. `TIMEOUT`:  the amount of milliseconds the service will wait for outgoing requests. Default is `30000`
+5. `THREADPOOL_SIZE`: number of Event Machine Threads, must be greater than `PREFETCH` and should be as it represents the number of async calls and requests the service can handle.  Default is `500`
+6. `ALCHEMY_RESOURCE_PATHS`: a comma separated list of resource paths that are handled by this service e.g. `'/v1/users,/v1/admins'`. Default is `''`
+
+Then `alchemy-flux` gem into a project and run `rackup -s alchemy` to start the server with Alchemy.
+
+For example, to run a simple Sinatra application in the Alchemy framework you will need the files:
+
+```
+# ./Gemfile
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'alchemy-flux'
+```
+
+```
+# ./config.ru
+ENV['ALCHEMY_SERVICE_NAME'] = 'helloworld.service'
+ENV['ALCHEMY_RESOURCE_PATHS'] = '/v1/hello'
+
+require 'alchemy-flux'
+require './service'
+run Sinatra::Application
+```
+
+```
+# ./service.rb
+require 'sinatra'
+
+get '/v1/hello' do
+  content_type :json
+  {'hello' => 'world!'}.to_json
+end
+```
+
+Then run:
+
+```
+bundle install
+bundle exec rackup -s alchemy
+```
+
+The service will now be listening on RabbitMQ for incoming messages, running a router and calling over HTTP, or running another service will now work correctly.
 
 ## Documentation
 
