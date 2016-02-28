@@ -399,7 +399,6 @@ module AlchemyFlux
     #
     # 1. *session*: undefined structure that can be passed in the message
     # so that a service does not need to re-authenticate with each message
-    # 2. *session_id*: identifier for session
     #
     def format_HTTP_message(message)
       message = {
@@ -416,8 +415,7 @@ module AlchemyFlux
         'port' =>        message['port']        || 8080,
 
         # Custom Authentication
-        'session'    =>  message['session'],
-        'session_id' =>  message['session_id']
+        'session'    =>  message['session']
       }
 
       message
