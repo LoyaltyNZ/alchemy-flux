@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'alchemy-flux'
-  s.version     = '0.1.2'
+  s.version     = '1.0.0'
   s.summary     = "Ruby implementation of the Alchemy micro-service framework"
   s.description = "Ruby implementation of the Alchemy micro-service framework"
   s.authors     = [ 'Loyalty New Zealand']
