@@ -309,6 +309,21 @@ module AlchemyFlux
 
     public
 
+    # send a message to queue do not wait for response
+    #
+    # *queue_name*:: The routing key to use
+    # *message*:: The message to be sent
+    def send_message_to_queue(queue_name, message)
+      send_message( @channel.default_exchange, queue_name, message, {
+        message_id:          AlchemyFlux::Service.generateUUID(),
+        type:               'ignore',
+        content_encoding:   '8bit',
+        content_type:       'application/json',
+        expiration:          @options[:timeout],
+        mandatory:           true
+      })
+    end
+
     # send a message to a service, this does not wait for a response
     #
     # *service_name*:: The name of the service
@@ -402,7 +417,7 @@ module AlchemyFlux
     # 2. *session_id*: identifier for session
     #
     def format_HTTP_message(message)
-      {
+      message = {
         # Request Parameters
         'body' =>        message['body']        || "",
         'verb' =>        message['verb']        || "GET",
@@ -419,6 +434,8 @@ module AlchemyFlux
         'session'    =>  message['session'],
         'session_id' =>  message['session_id']
       }
+
+      message
     end
 
     # send a HTTP message to an exchange with routing key
