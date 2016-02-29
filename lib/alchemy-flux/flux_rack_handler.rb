@@ -55,6 +55,7 @@ module Rack
 
           # add Alchemy Service so the app may call other services
           rack_env['alchemy.service'] = @@service
+          rack_env['alchemy.session'] = message['session']
 
           status, headers, body = app.call(rack_env)
 

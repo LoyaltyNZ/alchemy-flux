@@ -7,7 +7,7 @@ describe AlchemyFlux::Service do
     AlchemyFlux::Service.stop
   end
 
-  describe "#send_message_to_resource" do
+  describe "#send_request_to_resource" do
 
     it 'should be able to send messages to resource via path' do
       resource_path = "/v1/fluxy_#{AlchemyFlux::Service.generateUUID()}"
@@ -22,10 +22,10 @@ describe AlchemyFlux::Service do
 
       sleep(1)
 
-      response = service_b.send_message_to_resource({'path' => resource_path, 'body' => {'name' => "Bob"}})
+      response = service_b.send_request_to_resource({'path' => resource_path, 'body' => {'name' => "Bob"}})
       expect(response['body']).to eq "hi Bob"
 
-      response = service_b.send_message_to_resource({'path' => "#{resource_path}/id", 'body' => {'name' => "Alice"}})
+      response = service_b.send_request_to_resource({'path' => "#{resource_path}/id", 'body' => {'name' => "Alice"}})
       expect(response['body']).to eq "hi Alice"
 
       service_a.stop
@@ -46,10 +46,10 @@ describe AlchemyFlux::Service do
 
       sleep(1)
 
-      response = service_b.send_message_to_resource({'path' => resource_path1, 'body' => {'name' => "Bob"}})
+      response = service_b.send_request_to_resource({'path' => resource_path1, 'body' => {'name' => "Bob"}})
       expect(response['body']).to eq "hi Bob"
 
-      response = service_b.send_message_to_resource({'path' => resource_path2, 'body' => {'name' => "Alice"}})
+      response = service_b.send_request_to_resource({'path' => resource_path2, 'body' => {'name' => "Alice"}})
       expect(response['body']).to eq "hi Alice"
       service_a.stop
       service_b.stop
@@ -62,12 +62,41 @@ describe AlchemyFlux::Service do
 
         service_b.start
 
-        expect(service_b.send_message_to_resource({'path' => '/v1/unregistered_resource'})).to eq AlchemyFlux::MessageNotDeliveredError
+        expect(service_b.send_request_to_resource({'path' => '/v1/unregistered_resource'})).to eq AlchemyFlux::MessageNotDeliveredError
         expect(service_b.transactions.length).to eq 0
 
         service_b.stop
       end
 
     end
+  end
+
+  describe "#send_message_to_resource" do
+    it 'should be able to send messages to resource via path' do
+      resource_path = "/v1/fluxy_#{AlchemyFlux::Service.generateUUID()}"
+      recieved_count = 0
+      service_a = AlchemyFlux::Service.new("fluxa.send_service", resource_paths: [resource_path]) do |message|
+        recieved_count += 1
+        {}
+      end
+
+      service_b = AlchemyFlux::Service.new("fluxb.send_service")
+
+      service_a.start
+      service_b.start
+
+      sleep(1)
+      expect(recieved_count).to be 0
+      response = service_b.send_request_to_resource({'path' => resource_path, 'body' => {'name' => "Bob"}})
+      sleep(0.1)
+      expect(recieved_count).to be 1
+      response = service_b.send_request_to_resource({'path' => "#{resource_path}/id", 'body' => {'name' => "Alice"}})
+      sleep(0.1)
+      expect(recieved_count).to be 2
+
+      service_a.stop
+      service_b.stop
+    end
+
   end
 end

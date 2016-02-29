@@ -92,7 +92,7 @@ describe AlchemyFlux::Service do
       service_b.start
 
       service_a.stop
-      expect(service_b.send_message_to_service("fluxa.service", {})).to eq AlchemyFlux::TimeoutError
+      expect(service_b.send_request_to_service("fluxa.service", {})).to eq AlchemyFlux::TimeoutError
       service_b.stop
     end
 
@@ -108,7 +108,7 @@ describe AlchemyFlux::Service do
       service_b.start
 
       response_queue = Queue.new
-      service_b.send_message_to_service("fluxa.service", {}) do |response|
+      service_b.send_request_to_service("fluxa.service", {}) do |response|
         response_queue << response
       end
       sleep(0.05)
@@ -132,7 +132,7 @@ describe AlchemyFlux::Service do
       service_b.start
 
       response_queue = Queue.new
-      service_b.send_message_to_service("fluxa.service", {}) do |response|
+      service_b.send_request_to_service("fluxa.service", {}) do |response|
         response_queue << response
       end
       sleep(0.01)
@@ -156,13 +156,13 @@ describe AlchemyFlux::Service do
       service_b.start
 
       response_queue = Queue.new
-      service_b.send_message_to_service("fluxa.service", {}) do |response|
+      service_b.send_request_to_service("fluxa.service", {}) do |response|
         response_queue << response
       end
       sleep(0.1)
       Thread.new do service_a.stop end
       sleep(0.3)
-      expect(service_b.send_message_to_service("fluxa.service", {})).to eq AlchemyFlux::TimeoutError
+      expect(service_b.send_request_to_service("fluxa.service", {})).to eq AlchemyFlux::TimeoutError
 
       response = response_queue.pop
 
@@ -180,10 +180,10 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
+      response = service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
       expect(response['body']).to eq "hi Bob"
 
-      response = service_a.send_message_to_service("fluxb.service", {'body' => {'name' => "Bob"}})
+      response = service_a.send_request_to_service("fluxb.service", {'body' => {'name' => "Bob"}})
       expect(response['body']).to be_empty
 
 
@@ -192,7 +192,8 @@ describe AlchemyFlux::Service do
     end
   end
 
-  describe "#send_message_to_queue" do
+
+  describe "#send_message_to_service" do
     it 'should send a message to services' do
       received = false
       service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
@@ -205,7 +206,7 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_queue("fluxa.service", {})
+      service_b.send_message_to_service("fluxa.service", {})
       sleep(0.1)
       expect(received).to be true
       service_a.stop
@@ -214,7 +215,9 @@ describe AlchemyFlux::Service do
 
   end
 
-  describe "#send_message_to_service" do
+
+
+  describe "#send_request_to_service" do
 
     it 'should send and receive messages between services' do
       service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
@@ -226,7 +229,7 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
+      response = service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
       expect(response['body']).to eq "hi Bob"
       service_a.stop
       service_b.stop
@@ -244,7 +247,7 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
+      response = service_b.send_request_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
       expect(response['body']).to eq "hi Bob"
       service_a.stop
       service_b.stop
@@ -264,7 +267,7 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
+      response = service_b.send_request_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
       expect(response['body']).to eq "hi Bob"
       expect(response['headers']["X-header"]).to eq "header1"
       service_a.stop
@@ -285,7 +288,7 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
+      response = service_b.send_request_to_service("fluxa.service", {'body' => '{"name" : "Bob"}'})
       expect(response['body']).to eq "hi Bob"
       expect(response['status_code']).to eq 201
       service_a.stop
@@ -294,7 +297,7 @@ describe AlchemyFlux::Service do
 
     it 'should be able to send messages within the service call' do
       service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
-        resp = service_a.send_message_to_service("fluxb.service", {})
+        resp = service_a.send_request_to_service("fluxb.service", {})
         {'body' => "hi #{resp['body']}"}
       end
 
@@ -305,7 +308,7 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_service("fluxa.service", {})
+      response = service_b.send_request_to_service("fluxa.service", {})
       expect(response['body']).to eq "hi Bob"
       service_a.stop
       service_b.stop
@@ -316,7 +319,7 @@ describe AlchemyFlux::Service do
       service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
         if first
           first = !first
-          resp = service_a.send_message_to_service("fluxa.service", {})
+          resp = service_a.send_request_to_service("fluxa.service", {})
           {'body' => "hi #{resp['body']}"}
         else
           {'body' => 'Bob'}
@@ -328,7 +331,7 @@ describe AlchemyFlux::Service do
       service_a.start
       service_b.start
 
-      response = service_b.send_message_to_service("fluxa.service", {})
+      response = service_b.send_request_to_service("fluxa.service", {})
       expect(response['body']).to eq "hi Bob"
       service_a.stop
       service_b.stop
@@ -351,7 +354,7 @@ describe AlchemyFlux::Service do
       expect(service_a.processing_messages).to eq 0
 
       response = Queue.new
-      service_b.send_message_to_service("fluxa.service", {}) do |resp|
+      service_b.send_request_to_service("fluxa.service", {}) do |resp|
         response << resp
       end
       sleep(0.05)
@@ -378,7 +381,7 @@ describe AlchemyFlux::Service do
       service_b.start
 
       block = Queue.new
-      service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}}) do |response|
+      service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}}) do |response|
         block << response
       end
 
@@ -404,7 +407,7 @@ describe AlchemyFlux::Service do
         service_b.start
 
         block = Queue.new
-        service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}}) do |response|
+        service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}}) do |response|
           block << response
         end
         response = block.pop
@@ -425,7 +428,7 @@ describe AlchemyFlux::Service do
         service_a.start
         service_b.start
 
-        response = service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
+        response = service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
 
         expect(response).to eq AlchemyFlux::TimeoutError
         expect(service_b.transactions.length).to eq 0
@@ -444,7 +447,7 @@ describe AlchemyFlux::Service do
         service_a.start
         service_b.start
 
-        response = service_b.send_message_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
+        response = service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
 
         expect(response['status_code']).to eq 500
         expect(service_b.transactions.length).to eq 0
@@ -458,7 +461,7 @@ describe AlchemyFlux::Service do
 
         service_b.start
 
-        expect(service_b.send_message_to_service("not_a_servoces.service", {})).to eq AlchemyFlux::MessageNotDeliveredError
+        expect(service_b.send_request_to_service("not_a_servoces.service", {})).to eq AlchemyFlux::MessageNotDeliveredError
         expect(service_b.transactions.length).to eq 0
 
         service_b.stop

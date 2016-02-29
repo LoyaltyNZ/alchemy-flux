@@ -19,7 +19,7 @@ describe Rack::Handler::AlchemyFlux do
       Rack::Handler::AlchemyFlux.start app
       service_a.start
       sleep(0.5)
-      response = service_a.send_message_to_service("rack.service", {})
+      response = service_a.send_request_to_service("rack.service", {})
       expect(response['body']).to eq "hi Bob"
       service_a.stop
       Rack::Handler::AlchemyFlux.stop
@@ -38,10 +38,10 @@ describe Rack::Handler::AlchemyFlux do
       service_a.start
       sleep(0.5)
 
-      response = service_a.send_message_to_resource({'path' => '/alice'})
+      response = service_a.send_request_to_resource({'path' => '/alice'})
       expect(response['body']).to eq "hi /alice"
 
-      response = service_a.send_message_to_resource({'path' => '/bob'})
+      response = service_a.send_request_to_resource({'path' => '/bob'})
       expect(response['body']).to eq "hi /bob"
 
       service_a.stop

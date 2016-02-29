@@ -1,45 +1,6 @@
 # Alchemy Flux
 
-## Alchemy Micro-services Framework
-
-The Alchemy [Micro-services](http://martinfowler.com/articles/microservices.html) Framework is a framework for creating many small interconnected services that communicate over the RabbitMQ message brokering service. Building services with Alchemy has many benefits, like:
-
-* **High Availability**: being able to run multiple services across many different machines, communicating to a High Availability RabbitMQ Cluster.
-* **Smart Load Balancing**: running multiple instances of the same service, will distribute messages to services based on the service capacity and not via a simple round robin approach.
-* **Service Discovery** Using RabbitMQ's routing of messages means services can communicate without knowing where they are located.
-* **Deployment** you can stop a service, then start a new service without missing any messages because they are buffered on RabbitMQ. Alternatively, you can run multiple versions of the same service concurrently to do rolling deploys.
-* **Error Recovery** If a service unexpectedly dies while processing a message, the message can be reprocessed by another service.
-* **Polyglot Architecture**: Each service can be implemented in the language that best suites its domain.
-
-## How Alchemy Services Work
-
-An Alchemy service communicates by registering two queues, a **service queue** (shared amongst all instances of a service) and a **response queue** (unique to that service instance). *For the purpose of clarity I will note a service with letters e.g. `A`, `B` and service instances with numbers, e.g. `A1` is service `A` instance `1`.*
-
-A service sends a message to another service by putting a message on its **service queue** (this message includes the **response queue** of the sender). An instance of that service will consume and process the message then respond to the received **response queue**. For example, if service `A1` wanted to message service `B`:
-
-```
-
-|----------|                                                  |------------|
-| RabbitMQ | <-- 1. Send message on queue B   --------------- | Service A1 |
-|          |                                                  |            |
-|          | --- 2. Consume Message from B  -> |------------| |            |
-|          |                                   | Service B1 | |            |
-|          | <-- 3. Respond on queue A1     -- |------------| |            |
-|          |                                                  |            |
-|----------| --- 4. Receive response on A1  ----------------> |------------|
-```
-
-Alchemy tries to reuse another common communication protocol, HTTP, for status codes, message formatting, headers and more. This way the basis of the messaging protocol is much simpler to explain and implement.
-
-Passing messages between services this way means that service `A1` can send messages to `B` without knowing which instance of `B` will process the message. If service `B1` becomes overloaded we can see the queue build up messages, and then start a new instance of service `B`, which, with zero configuration changes, immediately start processing messages.
-
-If the instance of `B` dies while processing a message, RabbitMQ will put the message back on the queue which can then be processed by another instance. This happens without the calling service knowing and so this makes the system much more resilient to errors. However, this also means that messages may be processed more than once, so implementing **idempotent** micro-services is very important.
-
-## Alchemy-Flux
-
-Alchemy-Flux is the Ruby implementation of the Alchemy Framework. Ruby is a great language to write in and works well with the Alchemy style of communication.
-
-Flux is implemented using the [EventMachine](https://github.com/eventmachine/eventmachine) and [AMQP](https://github.com/ruby-amqp/amqp) gems.
+Alchemy-Flux is the Ruby implementation of the [Alchemy Micro-Services Framework](https://github.com/LoyaltyNZ/alchemy-framework). Flux is implemented in Ruby using the [EventMachine](https://github.com/eventmachine/eventmachine) and [AMQP](https://github.com/ruby-amqp/amqp) gems, these work well with the Alchemy style of communication.
 
 ### Getting Started
 
@@ -64,11 +25,11 @@ service_a.start
 service_b.start
 
 # Synchronous message
-response = service_a1.send_message_to_service("B", {'body' => "Alice"})
+response = service_a1.send_request_to_service("B", {'body' => "Alice"})
 puts response['body'] # Hello Alice
 
 # Asynchronous message
-service_a1.send_message_to_service("B", {'body' => "Bob"}) do |response|
+service_a1.send_request_to_service("B", {'body' => "Bob"}) do |response|
   puts response['body'] # Hello Bob
 end
 
@@ -77,6 +38,58 @@ sleep(1) # wait for asynchronous message to complete
 service_a.stop
 service_b.stop
 ```
+
+## Rack Implementation
+
+Alchemy Flux comes with an implementation in Rack so that other popular frameworks like Rails or Sinatra can be used with Alchemy. The main configuration is done through environment variables:
+
+1. `ALCHEMY_SERVICE_NAME`: the name of the service. **REQUIRED**
+2. `AMQ_URI`: URL of the RabbitMQ cluster. Default is `'amqp://localhost'`,
+3. `PREFETCH`: the number of messages to prefetch from RabbitMQ and handle concurrently. Default is `20`.
+4. `TIMEOUT`:  the amount of milliseconds the service will wait for outgoing requests. Default is `30000`
+5. `THREADPOOL_SIZE`: number of Event Machine Threads, must be greater than `PREFETCH` and should be as it represents the number of async calls and requests the service can handle.  Default is `500`
+6. `ALCHEMY_RESOURCE_PATHS`: a comma separated list of resource paths that are handled by this service e.g. `'/v1/users,/v1/admins'`. Default is `''`
+
+Then `alchemy-flux` gem into a project and run `rackup -s alchemy` to start the server with Alchemy.
+
+For example, to run a simple Sinatra application in the Alchemy framework you will need the files:
+
+```
+# ./Gemfile
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'alchemy-flux'
+```
+
+```
+# ./config.ru
+ENV['ALCHEMY_SERVICE_NAME'] = 'helloworld.service'
+ENV['ALCHEMY_RESOURCE_PATHS'] = '/v1/hello'
+
+require 'alchemy-flux'
+require './service'
+run Sinatra::Application
+```
+
+```
+# ./service.rb
+require 'sinatra'
+
+get '/v1/hello' do
+  content_type :json
+  {'hello' => 'world!'}.to_json
+end
+```
+
+Then run:
+
+```
+bundle install
+bundle exec rackup -s alchemy
+```
+
+The service will now be listening on RabbitMQ for incoming messages, running a router and calling over HTTP, or calling directly from another service will be routed to this service.
 
 ## Documentation
 

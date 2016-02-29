@@ -64,90 +64,12 @@
     <div id="content"><div id='filecontents'>
 <h1 id="label-Alchemy+Flux">Alchemy Flux</h1>
 
-<h2 id="label-Alchemy+Micro-services+Framework">Alchemy Micro-services Framework</h2>
-
-<p>The Alchemy <a
-href="http://martinfowler.com/articles/microservices.html">Micro-services</a>
-Framework is a framework for creating many small interconnected services
-that communicate over the RabbitMQ message brokering service. Building
-services with Alchemy has many benefits, like:</p>
-<ul><li>
-<p><strong>High Availability</strong>: being able to run multiple services
-across many different machines, communicating to a High Availability
-RabbitMQ Cluster.</p>
-</li><li>
-<p><strong>Smart Load Balancing</strong>: running multiple instances of the
-same service, will distribute messages to services based on the service
-capacity and not via a simple round robin approach.</p>
-</li><li>
-<p><strong>Service Discovery</strong> Using RabbitMQ&#39;s routing of messages
-means services can communicate without knowing where they are located.</p>
-</li><li>
-<p><strong>Deployment</strong> you can stop a service, then start a new
-service without missing any messages because they are buffered on RabbitMQ.
-Alternatively, you can run multiple versions of the same service
-concurrently to do rolling deploys.</p>
-</li><li>
-<p><strong>Error Recovery</strong> If a service unexpectedly dies while
-processing a message, the message can be reprocessed by another service.</p>
-</li><li>
-<p><strong>Polyglot Architecture</strong>: Each service can be implemented in
-the language that best suites its domain.</p>
-</li></ul>
-
-<h2 id="label-How+Alchemy+Services+Work">How Alchemy Services Work</h2>
-
-<p>An Alchemy service communicates by registering two queues, a
-<strong>service queue</strong> (shared amongst all instances of a service)
-and a <strong>response queue</strong> (unique to that service instance).
-<em>For the purpose of clarity I will note a service with letters e.g.
-<code>A</code>, <code>B</code> and service instances with numbers, e.g.
-<code>A1</code> is service <code>A</code> instance <code>1</code>.</em></p>
-
-<p>A service sends a message to another service by putting a message on its
-<strong>service queue</strong> (this message includes the <strong>response
-queue</strong> of the sender). An instance of that service will consume and
-process the message then respond to the received <strong>response
-queue</strong>. For example, if service <code>A1</code> wanted to message
-service <code>B</code>:</p>
-
-<pre class="code ruby"><code class="ruby">
-|----------|                                                  |------------|
-| RabbitMQ | &lt;-- 1. Send message on queue B   --------------- | Service A1 |
-|          |                                                  |            |
-|          | --- 2. Consume Message from B  -&gt; |------------| |            |
-|          |                                   | Service B1 | |            |
-|          | &lt;-- 3. Respond on queue A1     -- |------------| |            |
-|          |                                                  |            |
-|----------| --- 4. Receive response on A1  ----------------&gt; |------------|</code></pre>
-
-<p>Alchemy tries to reuse another common communication protocol, HTTP, for
-status codes, message formatting, headers and more. This way the basis of
-the messaging protocol is much simpler to explain and implement.</p>
-
-<p>Passing messages between services this way means that service
-<code>A1</code> can send messages to <code>B</code> without knowing which
-instance of <code>B</code> will process the message. If service
-<code>B1</code> becomes overloaded we can see the queue build up messages,
-and then start a new instance of service <code>B</code>, which, with zero
-configuration changes, immediately start processing messages.</p>
-
-<p>If the instance of <code>B</code> dies while processing a message, RabbitMQ
-will put the message back on the queue which can then be processed by
-another instance. This happens without the calling service knowing and so
-this makes the system much more resilient to errors. However, this also
-means that messages may be processed more than once, so implementing
-<strong>idempotent</strong> micro-services is very important.</p>
-
-<h2 id="label-Alchemy-Flux">Alchemy-Flux</h2>
-
-<p>Alchemy-Flux is the Ruby implementation of the Alchemy Framework. Ruby is a
-great language to write in and works well with the Alchemy style of
-communication.</p>
-
-<p>Flux is implemented using the <a
+<p>Alchemy-Flux is the Ruby implementation of the <a
+href="https://github.com/LoyaltyNZ/alchemy-framework">Alchemy
+Micro-Services Framework</a>. Flux is implemented in Ruby using the <a
 href="https://github.com/eventmachine/eventmachine">EventMachine</a> and <a
-href="https://github.com/ruby-amqp/amqp">AMQP</a> gems.</p>
+href="https://github.com/ruby-amqp/amqp">AMQP</a> gems, these work well
+with the Alchemy style of communication.</p>
 
 <h3 id="label-Getting+Started">Getting Started</h3>
 
@@ -171,11 +93,11 @@ have instance <code>A1</code> call service <code>B</code>:</p>
 <span class='id identifier rubyid_service_b'>service_b</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span>
 
 <span class='comment'># Synchronous message
-</span><span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_service_a1'>service_a1</span><span class='period'>.</span><span class='id identifier rubyid_send_message_to_service'>send_message_to_service</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>B</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Alice</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
+</span><span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_service_a1'>service_a1</span><span class='period'>.</span><span class='id identifier rubyid_send_request_to_service'>send_request_to_service</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>B</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Alice</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='comment'># Hello Alice
 </span>
 <span class='comment'># Asynchronous message
-</span><span class='id identifier rubyid_service_a1'>service_a1</span><span class='period'>.</span><span class='id identifier rubyid_send_message_to_service'>send_message_to_service</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>B</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Bob</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_response'>response</span><span class='op'>|</span>
+</span><span class='id identifier rubyid_service_a1'>service_a1</span><span class='period'>.</span><span class='id identifier rubyid_send_request_to_service'>send_request_to_service</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>B</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Bob</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_response'>response</span><span class='op'>|</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='comment'># Hello Bob
 </span><span class='kw'>end</span>
 
@@ -184,6 +106,75 @@ have instance <code>A1</code> call service <code>B</code>:</p>
 <span class='id identifier rubyid_service_a'>service_a</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
 <span class='id identifier rubyid_service_b'>service_b</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
 </code></pre>
+
+<h2 id="label-Rack+Implementation">Rack Implementation</h2>
+
+<p>Alchemy Flux comes with an implementation in Rack so that other popular
+frameworks like Rails or Sinatra can be used with Alchemy. The main
+configuration is done through environment variables:</p>
+<ol><li>
+<p><code>ALCHEMY_SERVICE_NAME</code>: the name of the service.
+<strong>REQUIRED</strong></p>
+</li><li>
+<p><code>AMQ_URI</code>: URL of the RabbitMQ cluster. Default is
+<code>&#39;amqp://localhost&#39;</code>,</p>
+</li><li>
+<p><code>PREFETCH</code>: the number of messages to prefetch from RabbitMQ and
+handle concurrently. Default is <code>20</code>.</p>
+</li><li>
+<p><code>TIMEOUT</code>: the amount of milliseconds the service will wait for
+outgoing requests. Default is <code>30000</code></p>
+</li><li>
+<p><code>THREADPOOL_SIZE</code>: number of Event Machine Threads, must be
+greater than <code>PREFETCH</code> and should be as it represents the
+number of async calls and requests the service can handle. Default is
+<code>500</code></p>
+</li><li>
+<p><code>ALCHEMY_RESOURCE_PATHS</code>: a comma separated list of resource
+paths that are handled by this service e.g.
+<code>&#39;/v1/users,/v1/admins&#39;</code>. Default is
+<code>&#39;&#39;</code></p>
+</li></ol>
+
+<p>Then <code>alchemy-flux</code> gem into a project and run <code>rackup -s
+alchemy</code> to start the server with Alchemy.</p>
+
+<p>For example, to run a simple Sinatra application in the Alchemy framework
+you will need the files:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># ./Gemfile
+</span><span class='id identifier rubyid_source'>source</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://rubygems.org</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sinatra</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>alchemy-flux</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># ./config.ru
+</span><span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ALCHEMY_SERVICE_NAME</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>helloworld.service</span><span class='tstring_end'>&#39;</span></span>
+<span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ALCHEMY_RESOURCE_PATHS</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/v1/hello</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>alchemy-flux</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>./service</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_run'>run</span> <span class='const'>Sinatra</span><span class='op'>::</span><span class='const'>Application</span>
+</code></pre>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># ./service.rb
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sinatra</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/v1/hello</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_content_type'>content_type</span> <span class='symbol'>:json</span>
+  <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>world!</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Then run:</p>
+
+<pre class="code ruby"><code class="ruby">bundle install
+bundle exec rackup -s alchemy</code></pre>
+
+<p>The service will now be listening on RabbitMQ for incoming messages,
+running a router and calling over HTTP, or running another service will now
+work correctly.</p>
 
 <h2 id="label-Documentation">Documentation</h2>
 
@@ -206,9 +197,9 @@ href="https://rubygems.org/gems/yard/versions/0.8.7.6">yard</a>.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Thu Jan 21 10:09:51 2016 by
+  Generated on Mon Feb 29 11:41:56 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.3).
+  0.8.7.6 (ruby-2.2.4).
 </div>
 
   </body>

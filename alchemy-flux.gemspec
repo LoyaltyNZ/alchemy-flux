@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'alchemy-flux'
-  s.version     = '0.1.2'
+  s.version     = '1.0.0'
   s.summary     = "Ruby implementation of the Alchemy micro-service framework"
   s.description = "Ruby implementation of the Alchemy micro-service framework"
   s.authors     = [ 'Loyalty New Zealand']
@@ -20,5 +20,4 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'eventmachine', '~> 1.0'
   s.add_runtime_dependency 'amqp', '~> 1.5'
   s.add_runtime_dependency 'uuidtools', '~> 2.1'
-  s.add_runtime_dependency 'msgpack', '~> 0.7'
 end
