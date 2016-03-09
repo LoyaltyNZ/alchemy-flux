@@ -9,3 +9,12 @@ rvm:
   - 2.1.8
   - 2.2.4
   - 2.3.0
+
+deploy:
+  provider: rubygems
+  gem: "alchemy-flux"
+  api_key:
+    secure: "F+uTGZGV8u2XcusmXn3Qu1q8jjy6zBydluQlH+aYFAjCcxjAFMsISTo+I9KyfZSyoRh3tc+q1IZ2hffDdNHfV/DQ/tjoG90UJEDbvj/4EVP6FJPOEajhLtTyfqtDyWt/tB0UXSdlEYtvb+K8PQEquzUqeFvH6r5RIMIdM9o0M4PUvTA1k9Ipx384Rwz7airXZQG/vMpoQWzPuNaTZykLdjDFqgwvV79fZB+zw27ajfHyD5GNc5Q60Gut2OY1J+NLf7abEMLyl8mHLrVUndYEM6wUNfRUGDDlz5sIOuKT4HsoPg1gUOcnvh7Pfz4X7skGto7X1a4gHOGvixv6PEc+zUdSmxWW2VxVnvberQrlHNTmxON72KGlgnpzBbCzhtoGS5nknBEBoxFTVjFAIJIEVG2ek/i5ADNHyIVzLaZzgYkMYm16/Wci5IiE8/eSiBvBWppobvFAJukamQ8F6MYq9WleKvp4ZIMd8ABbRyozm03zTqqvJH747b3GqUZvRIQFv3yMEbqQ0EeLQNrNcfS6pZK10hvA/PqJKSPCgc3hKD5ORY13fnsaejgrdVLfZN0uNkv11kFBwbTuejgvfh9UI53AZrNGTe6QQlPan60QU3FwVitJGDoPpqJSnVQj1W7flDrgeAuR3BwPhYCe5TWbK80+LVO3SuLYkEqU+U2FI6A="
+  on:
+    tags: true
+    repo: LoyaltyNZ/alchemy-flux
