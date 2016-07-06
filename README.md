@@ -1,5 +1,9 @@
 # Alchemy Flux
 
+[![Gem Version](https://badge.fury.io/rb/alchemy-flux.svg)](https://rubygems.org/gems/alchemy-flux)
+[![Build Status](https://travis-ci.org/LoyaltyNZ/alchemy-flux.svg?branch=master)](https://travis-ci.org/LoyaltyNZ/alchemy-flux)
+[![License](https://img.shields.io/badge/license-LGPL--3.0-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0.en.html)
+
 Alchemy-Flux is the Ruby implementation of the [Alchemy Micro-Services Framework](https://github.com/LoyaltyNZ/alchemy-framework). Flux is implemented in Ruby using the [EventMachine](https://github.com/eventmachine/eventmachine) and [AMQP](https://github.com/ruby-amqp/amqp) gems, these work well with the Alchemy style of communication.
 
 ### Getting Started
