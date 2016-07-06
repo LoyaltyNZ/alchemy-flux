@@ -42,7 +42,7 @@ module AlchemyFlux
     def initialize(name, options = {}, &block)
       @name = name
       @options = {
-          ampq_uri: 'amqp://localhost',
+          ampq_uri: 'amqp://127.0.0.1',
           prefetch: 20,
           timeout: 1000,
           threadpool_size: 500,
@@ -86,7 +86,7 @@ module AlchemyFlux
     # When the second Service is initialises the block is executed in the new thread,
     # but all the callbacks will be executed in the EM thread
     #
-    def self.start(ampq_uri = 'amqp://localhost', threadpool_size=500)
+    def self.start(ampq_uri = 'amqp://127.0.0.1', threadpool_size=500)
       return if EM.reactor_running?
       start_blocker = Queue.new
       Thread.new do
@@ -411,7 +411,7 @@ module AlchemyFlux
 
         # Location
         'scheme' =>      message['protocol']    || 'http',
-        'host' =>        message['hostname']    || 'localhost',
+        'host' =>        message['hostname']    || '127.0.0.1',
         'port' =>        message['port']        || 8080,
 
         # Custom Authentication

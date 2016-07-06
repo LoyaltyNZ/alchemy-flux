@@ -44,7 +44,7 @@ service_b.stop
 Alchemy Flux comes with an implementation in Rack so that other popular frameworks like Rails or Sinatra can be used with Alchemy. The main configuration is done through environment variables:
 
 1. `ALCHEMY_SERVICE_NAME`: the name of the service. **REQUIRED**
-2. `AMQ_URI`: URL of the RabbitMQ cluster. Default is `'amqp://localhost'`,
+2. `AMQ_URI`: URL of the RabbitMQ cluster. Default is `'amqp://127.0.0.1'`,
 3. `PREFETCH`: the number of messages to prefetch from RabbitMQ and handle concurrently. Default is `20`.
 4. `TIMEOUT`:  the amount of milliseconds the service will wait for outgoing requests. Default is `30000`
 5. `THREADPOOL_SIZE`: number of Event Machine Threads, must be greater than `PREFETCH` and should be as it represents the number of async calls and requests the service can handle.  Default is `500`
