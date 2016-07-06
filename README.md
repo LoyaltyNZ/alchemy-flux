@@ -111,3 +111,5 @@ bundle exec ruby examples/example_1_send_message.rb
 
 * Graham Jenson
 * Tom Cully
+* Andrew Hodgkinson
+* Dave Harris
