@@ -39,7 +39,7 @@ module Rack
         raise RuntimeError.new("Require ALCHEMY_SERVICE_NAME environment variable") if !service_name
 
         options = {
-          ampq_uri: ENV['AMQ_URI'] || 'amqp://localhost',
+          ampq_uri: ENV['AMQ_URI'] || 'amqp://127.0.0.1',
           prefetch: (ENV['PREFETCH'] || 20).to_i,
           timeout: (ENV['TIMEOUT'] || 30000).to_i,
           threadpool_size: (ENV['THREADPOOL_SIZE'] || 500).to_i,
