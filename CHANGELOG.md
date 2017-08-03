@@ -3,7 +3,7 @@
 ## v1.2.0
 
 - Added `AlchemyFlux::VERSION` and `AlchemyFlux::DATE`.
-- Ruby v2.2.7 or later, default to Ruby 2.4.1.
+- Requires Ruby v2.2.7 or later, defaults to Ruby 2.4.1.
 - Maintenance `bundle update`.
 
 ## v1.1.0
