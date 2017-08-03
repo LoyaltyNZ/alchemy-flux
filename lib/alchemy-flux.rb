@@ -3,6 +3,7 @@ require 'amqp'
 require "uuidtools"
 require 'json'
 
+require 'alchemy-flux/version.rb'
 require 'alchemy-flux/flux_rack_handler.rb'
 
 # Alchemy Flux module

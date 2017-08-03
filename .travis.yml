@@ -2,12 +2,15 @@ services:
   - rabbitmq
 
 language: ruby
+matrix:
+  include:
+    - rvm: 2.4.1
+    - rvm: 2.3.4
+    - rvm: 2.2.7
+
 cache: bundler
 
 script: bundle exec rspec --profile --format documentation
-rvm:
-  - 2.2.5
-  - 2.3.1
 
 deploy:
   provider: rubygems

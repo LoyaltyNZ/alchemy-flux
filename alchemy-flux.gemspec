@@ -1,6 +1,10 @@
+$:.push File.expand_path( '../lib', __FILE__ )
+require 'alchemy-flux/version'
+
 Gem::Specification.new do |s|
   s.name        = 'alchemy-flux'
-  s.version     = '1.1.0'
+  s.version     = AlchemyFlux::VERSION
+  s.date        = AlchemyFlux::DATE
   s.summary     = "Ruby implementation of the Alchemy micro-service framework"
   s.description = "Ruby implementation of the Alchemy micro-service framework"
   s.authors     = [ 'Loyalty New Zealand']
@@ -10,8 +14,7 @@ Gem::Specification.new do |s|
   s.files       = Dir.glob('lib/**/*.rb')
   s.test_files  = Dir.glob('spec/**/*.rb')
 
-
-  s.required_ruby_version = '>= 2.2.5'
+  s.required_ruby_version = '>= 2.2.7'
   s.add_development_dependency "rspec", '~> 3.4'
   s.add_development_dependency "rspec-mocks", '~> 3.4'
   s.add_development_dependency "rake", '~> 10.4'
