@@ -32,7 +32,7 @@ GEM
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
     uuidtools (2.1.5)
-    yard (0.9.9)
+    yard (0.9.12)
 
 PLATFORMS
   ruby
@@ -45,4 +45,4 @@ DEPENDENCIES
   yard (~> 0.8)
 
 BUNDLED WITH
-   1.15.3
+   1.16.1
