@@ -265,7 +265,7 @@ module AlchemyFlux
           @processing_messages -= 1
           @service_queue.acknowledge(delivery_tag)
 
-          # if there is an unhandled exception from the service, raise it so it will exit and k8s can spin up a new one
+          # if there is an unhandled exception from the service, raise it to force exit and container management can spin up a new one
           if result.size > 1
             raise result.last
           end
