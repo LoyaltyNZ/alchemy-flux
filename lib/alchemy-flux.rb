@@ -229,7 +229,7 @@ module AlchemyFlux
         rescue AlchemyFlux::NAckError => e
           AlchemyFlux::NAckError
         rescue Exception => e
-          # These are unhandled exceptions that shouldn't e happening unless for connection/restart issues.
+          # These are unhandled exceptions that shouldn't be happening unless for connection/restart issues.
           puts "Service Fn Error " + e.inspect
           [{
             'status_code' => 500,
