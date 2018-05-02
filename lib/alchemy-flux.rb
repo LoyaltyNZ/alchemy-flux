@@ -216,21 +216,22 @@ module AlchemyFlux
       this_message_id = AlchemyFlux::Service.generateUUID()
       delivery_tag = metadata.delivery_tag
 
+      # proc returns array or NAckError, first element is response hash, second (optional) element is possible unexpected exception
       operation = proc {
         @processing_messages += 1
         begin
           response = @service_fn.call(payload)
-          {
+          [{
             'status_code' => response['status_code'] || 200,
             'body'        => response['body']        || "",
             'headers'     => response['headers']     || {}
-          }
+          }]
         rescue AlchemyFlux::NAckError => e
           AlchemyFlux::NAckError
         rescue Exception => e
+          # These are unhandled exceptions that shouldn't be happening unless for connection/restart issues.
           puts "Service Fn Error " + e.inspect
-
-          {
+          [{
             'status_code' => 500,
             'headers' => {'Content-Type' => 'application/json; charset=utf-8'},
             'body' =>   {
@@ -243,7 +244,7 @@ module AlchemyFlux
                 'message_id' => message_replying_to
               }]
             }
-          }
+          }, e]
         end
       }
 
@@ -253,9 +254,8 @@ module AlchemyFlux
           @service_queue.reject(delivery_tag)
         else
           #if there is a service to reply to then reply, else ignore
-
           if service_to_reply_to
-            send_message(@channel.default_exchange, service_to_reply_to, result, {
+            send_message(@channel.default_exchange, service_to_reply_to, result.first, {
               :message_id     => this_message_id,
               :correlation_id => message_replying_to,
               :type           =>    'http_response'
@@ -264,6 +264,11 @@ module AlchemyFlux
 
           @processing_messages -= 1
           @service_queue.acknowledge(delivery_tag)
+
+          # if there is an unhandled exception from the service, raise it to force exit and container management can spin up a new one
+          if result.size > 1
+            raise result.last
+          end
         end
       }
 

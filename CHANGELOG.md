@@ -1,5 +1,10 @@
 # Change log
 
+## v1.2.1
+
+- Handle unexpected service exceptions better
+- Maintenance `bundle update yard`
+
 ## v1.2.0
 
 - Added `AlchemyFlux::VERSION` and `AlchemyFlux::DATE`.
