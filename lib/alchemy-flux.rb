@@ -228,22 +228,7 @@ module AlchemyFlux
         rescue AlchemyFlux::NAckError => e
           AlchemyFlux::NAckError
         rescue Exception => e
-          puts "Service Fn Error " + e.inspect
-
-          {
-            'status_code' => 500,
-            'headers' => {'Content-Type' => 'application/json; charset=utf-8'},
-            'body' =>   {
-              'kind' =>           "Errors",
-              'id' =>             AlchemyFlux::Service.generateUUID(),
-              'created_at' =>     Time.now.utc.iso8601,
-              'errors' => [{
-                'code' => 'alchemy-flux.error',
-                'message' => 'An unexpected error occurred',
-                'message_id' => message_replying_to
-              }]
-            }
-          }
+          e
         end
       }
 
@@ -251,6 +236,10 @@ module AlchemyFlux
 
         if result == AlchemyFlux::NAckError
           @service_queue.reject(delivery_tag)
+        elsif result.is_a?(Exception)
+          # if there is an unhandled exception from the service,
+          # raise it to force exit and container management can spin up a new one
+          raise result
         else
           #if there is a service to reply to then reply, else ignore
 

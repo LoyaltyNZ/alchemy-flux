@@ -417,6 +417,22 @@ describe AlchemyFlux::Service do
         service_b.stop
       end
 
+      it 'should raise exception if service_fn raises an error' do
+        service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
+          raise "An unexpected exception!"
+        end
+
+        service_b = AlchemyFlux::Service.new("fluxb.service")
+
+        service_a.start
+        service_b.start
+
+        expect { service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}}) }.to raise_error(RuntimeError)
+
+        service_a.stop
+        service_b.stop
+      end
+
       it 'should timeout if a message takes too long' do
         service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
           sleep(0.1)
@@ -431,25 +447,6 @@ describe AlchemyFlux::Service do
         response = service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
 
         expect(response).to eq AlchemyFlux::TimeoutError
-        expect(service_b.transactions.length).to eq 0
-
-        service_a.stop
-        service_b.stop
-      end
-
-      it 'should 500 if service_fn raises an error' do
-        service_a = AlchemyFlux::Service.new("fluxa.service") do |message|
-          raise Error.new
-        end
-
-        service_b = AlchemyFlux::Service.new("fluxb.service")
-
-        service_a.start
-        service_b.start
-
-        response = service_b.send_request_to_service("fluxa.service", {'body' => {'name' => "Bob"}})
-
-        expect(response['status_code']).to eq 500
         expect(service_b.transactions.length).to eq 0
 
         service_a.stop
