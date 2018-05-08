@@ -1,5 +1,10 @@
 # Change log
 
+## v1.2.1
+
+- Allow unexpected service exceptions to be surfaced to force service exit so container management can spin up a new one
+- Maintenance `bundle update`
+
 ## v1.2.0
 
 - Added `AlchemyFlux::VERSION` and `AlchemyFlux::DATE`.

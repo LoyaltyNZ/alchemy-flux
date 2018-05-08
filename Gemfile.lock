@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    alchemy-flux (1.2.0)
+    alchemy-flux (1.2.1)
       amqp (~> 1.5)
       eventmachine (~> 1.0)
       rack (~> 2.0)
@@ -10,29 +10,29 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    amq-protocol (2.2.0)
-    amqp (1.7.0)
-      amq-protocol (>= 2.1.0)
+    amq-protocol (2.3.0)
+    amqp (1.8.0)
+      amq-protocol (>= 2.2.0)
       eventmachine
     diff-lcs (1.3)
-    eventmachine (1.2.5)
-    rack (2.0.3)
+    eventmachine (1.2.6)
+    rack (2.0.5)
     rake (10.5.0)
-    rspec (3.6.0)
-      rspec-core (~> 3.6.0)
-      rspec-expectations (~> 3.6.0)
-      rspec-mocks (~> 3.6.0)
-    rspec-core (3.6.0)
-      rspec-support (~> 3.6.0)
-    rspec-expectations (3.6.0)
+    rspec (3.7.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+    rspec-core (3.7.1)
+      rspec-support (~> 3.7.0)
+    rspec-expectations (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.6.0)
-    rspec-mocks (3.6.0)
+      rspec-support (~> 3.7.0)
+    rspec-mocks (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.6.0)
-    rspec-support (3.6.0)
+      rspec-support (~> 3.7.0)
+    rspec-support (3.7.1)
     uuidtools (2.1.5)
-    yard (0.9.9)
+    yard (0.9.12)
 
 PLATFORMS
   ruby
@@ -45,4 +45,4 @@ DEPENDENCIES
   yard (~> 0.8)
 
 BUNDLED WITH
-   1.15.3
+   1.16.0
