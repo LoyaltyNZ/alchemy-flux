@@ -1,9 +1,14 @@
 # Change log
 
+## v1.3.0
+
+- Routine maintenance pass, including general `bundle update` and minimum Ruby version bump from 2.4.2 to 2.4.4.
+- Ruby 2.2 is no longer supported. Ruby 2.5 is now included in Travis test coverage.
+
 ## v1.2.1
 
-- Allow unexpected service exceptions to be surfaced to force service exit so container management can spin up a new one
-- Maintenance `bundle update`
+- Allow unexpected service exceptions to be surfaced to force service exit, so an assumed-present orchestration layer can restart it; this attempts to alleviate issues with losses of connection to Rabbit that previously caused ignored exceptions leaving the connection permanently disabled.
+- Maintenance `bundle update`.
 
 ## v1.2.0
 
