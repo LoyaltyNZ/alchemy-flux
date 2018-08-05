@@ -55,7 +55,7 @@ function searchFrameButtons() {
   });
   window.addEventListener('message', function(e) {
     if (e.data === 'navEscape') {
-      $('#search_frame').slideUp(100);
+      $('#nav').slideUp(100);
       $('#search a').removeClass('active inactive');
       $(window).focus();
     }
@@ -63,7 +63,7 @@ function searchFrameButtons() {
 
   $(window).resize(function() {
     if ($('#search:visible').length === 0) {
-      $('#search_frame').slideUp(100);
+      $('#nav').removeAttr('style');
       $('#search a').removeClass('active inactive');
       $(window).focus();
     }
@@ -71,7 +71,7 @@ function searchFrameButtons() {
 }
 
 function toggleSearchFrame(id, link) {
-  var frame = $('#search_frame');
+  var frame = $('#nav');
   $('#search a').removeClass('active').addClass('inactive');
   if (frame.attr('src') === link && frame.css('display') !== "none") {
     frame.slideUp(100);
@@ -117,6 +117,49 @@ function summaryToggle() {
   });
   if (localStorage.summaryCollapsed == "collapse") {
     $('.summary_toggle').first().click();
+  } else { localStorage.summaryCollapsed = "expand"; }
+}
+
+function constantSummaryToggle() {
+  $('.constants_summary_toggle').click(function(e) {
+    e.preventDefault();
+    localStorage.summaryCollapsed = $(this).text();
+    $('.constants_summary_toggle').each(function() {
+      $(this).text($(this).text() == "collapse" ? "expand" : "collapse");
+      var next = $(this).parent().parent().nextAll('dl.constants').first();
+      if (next.hasClass('compact')) {
+        next.toggle();
+        next.nextAll('dl.constants').first().toggle();
+      }
+      else if (next.hasClass('constants')) {
+        var list = $('<dl class="constants compact" />');
+        list.html(next.html());
+        list.find('dt').each(function() {
+           $(this).addClass('summary_signature');
+           $(this).text( $(this).text().split('=')[0]);
+          if ($(this).has(".deprecated").length) {
+             $(this).addClass('deprecated');
+          };
+        });
+        // Add the value of the constant as "Tooltip" to the summary object
+        list.find('pre.code').each(function() {
+          console.log($(this).parent());
+          var dt_element = $(this).parent().prev();
+          var tooltip = $(this).text();
+          if (dt_element.hasClass("deprecated")) {
+             tooltip = 'Deprecated. ' + tooltip;
+          };
+          dt_element.attr('title', tooltip);
+        });
+        list.find('.docstring, .tags, dd').remove();
+        next.before(list);
+        next.toggle();
+      }
+    });
+    return false;
+  });
+  if (localStorage.summaryCollapsed == "collapse") {
+    $('.constants_summary_toggle').first().click();
   } else { localStorage.summaryCollapsed = "expand"; }
 }
 
@@ -224,7 +267,12 @@ function navExpander() {
 }
 
 function mainFocus() {
-  $('#main')[0].focus();
+  var hash = window.location.hash;
+  if (hash !== '' && $(hash)[0]) {
+    $(hash)[0].scrollIntoView();
+  }
+
+  setTimeout(function() { $('#main').focus(); }, 10);
 }
 
 $(document).ready(function() {
@@ -236,6 +284,7 @@ $(document).ready(function() {
   searchFrameButtons();
   linkSummaries();
   summaryToggle();
+  constantSummaryToggle();
   generateTOC();
   mainFocus();
 });
