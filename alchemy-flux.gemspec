@@ -25,4 +25,5 @@ Gem::Specification.new do | s |
   s.add_development_dependency 'rspec-mocks',  '~>  3.8'
   s.add_development_dependency 'rake',         '~> 12.3'
   s.add_development_dependency 'yard',         '~>  0.9'
+  s.add_development_dependency 'bundler-audit'
 end

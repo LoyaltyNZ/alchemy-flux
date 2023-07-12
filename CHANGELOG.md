@@ -4,6 +4,10 @@
 
 - Support Ruby 2.7
 
+## v1.3.1
+
+- Critical vulnerabilities update [DS-2925](https://loyaltynz.atlassian.net/browse/DS-2925)
+
 ## v1.3.0
 
 - Routine maintenance pass, including general `bundle update` and minimum Ruby version bump from 2.4.2 to 2.4.4.
