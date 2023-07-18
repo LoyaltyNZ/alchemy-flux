@@ -1,14 +1,19 @@
+os: linux
+dist: trusty
 services:
   - rabbitmq
 
 language: ruby
 matrix:
   include:
+    - rvm: 2.7.3
     - rvm: 2.5.1
     - rvm: 2.4.4
     - rvm: 2.3.7
 
 cache: bundler
+
+before_install: gem install bundler:$(grep -A 1 'BUNDLED WITH' Gemfile.lock | sed -n 2p | tr -d ' ')
 
 script: bundle exec rspec --profile --format documentation
 
