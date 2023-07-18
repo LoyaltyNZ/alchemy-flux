@@ -45,4 +45,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   1.16.1
+   2.4.13

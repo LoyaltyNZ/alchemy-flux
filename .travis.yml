@@ -4,9 +4,7 @@ services:
 language: ruby
 matrix:
   include:
-    - rvm: 2.5.1
-    - rvm: 2.4.4
-    - rvm: 2.3.7
+    - rvm: 3.2.2
 
 cache: bundler
 
