@@ -4,6 +4,13 @@
 
 - Support Ruby 2.7
 
+## v1.3.1
+
+- Critical vulnerabilities update
+  - Bump `rack` from `2.0.5` to `2.2.7`
+  - Bump `rake` from `12.3.1` to `12.3.3`
+  - Bump `yard` from `0.9.15` to `0.9.34`
+
 ## v1.3.0
 
 - Routine maintenance pass, including general `bundle update` and minimum Ruby version bump from 2.4.2 to 2.4.4.

@@ -2,3 +2,9 @@
 .yardoc/*
 *.gem
 .bundle/
+
+# Ignore temporary files created by editors etc
+.vscode/
+*.log
+.idea/*
+.run/*

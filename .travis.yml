@@ -10,10 +10,15 @@ matrix:
     - rvm: 2.5.1
     - rvm: 2.4.4
     - rvm: 2.3.7
+    - rvm: 2.7.3
 
 cache: bundler
 
 before_install: gem install bundler:$(grep -A 1 'BUNDLED WITH' Gemfile.lock | sed -n 2p | tr -d ' ')
+
+before_script:
+  - bundle exec bundle-audit update
+  - bundle exec bundle-audit check
 
 script: bundle exec rspec --profile --format documentation
 
