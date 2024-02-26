@@ -1,5 +1,9 @@
 # Change log
 
+## v1.5.0
+
+- Support Ruby >= 3; disallow Ruby version 2. [DS-4133](https://loyaltynz.atlassian.net/browse/DS-4133)
+
 ## v1.4.0
 
 - Support Ruby 2.7

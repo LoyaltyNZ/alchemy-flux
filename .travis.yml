@@ -6,11 +6,7 @@ services:
 language: ruby
 matrix:
   include:
-    - rvm: 2.7.3
-    - rvm: 2.5.1
-    - rvm: 2.4.4
-    - rvm: 2.3.7
-    - rvm: 2.7.3
+    - rvm: 3.3.0
 
 cache: bundler
 
