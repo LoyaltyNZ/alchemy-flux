@@ -1,7 +1,13 @@
 os: linux
-dist: trusty
+dist: bionic
 services:
   - rabbitmq
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - rabbitmq-server
 
 language: ruby
 matrix:
@@ -20,6 +26,11 @@ before_script:
   - bundle exec bundle-audit update
   - bundle exec bundle-audit check
   - bundle exec rake check_version
+  - |
+    until nc -z 127.0.0.1 5672; do
+      echo "Waiting for RabbitMQ..."
+      sleep 1
+    done
 
 script: bundle exec rspec --profile --format documentation
 
