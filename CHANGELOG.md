@@ -1,8 +1,12 @@
 # Change log
 
+## v1.5.0
+
+- Support Ruby 3.3.
+
 ## v1.4.0
 
-- Support Ruby 2.7
+- Support Ruby 2.7.
 
 ## v1.3.1
 
@@ -14,7 +18,7 @@
 ## v1.3.0
 
 - Routine maintenance pass, including general `bundle update` and minimum Ruby version bump from 2.4.2 to 2.4.4.
-- Ruby 2.2 is no longer supported. Ruby 2.5 is now included in Travis test coverage.
+  - Ruby 2.2 is no longer supported. Ruby 2.5 is now included in Travis test coverage.
 
 ## v1.2.1
 
