@@ -1,16 +1,22 @@
 os: linux
-dist: trusty
+dist: bionic
 services:
   - rabbitmq
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - rabbitmq-server
 
 language: ruby
 matrix:
   include:
-    - rvm: 2.7.3
-    - rvm: 2.5.1
-    - rvm: 2.4.4
     - rvm: 2.3.7
+    - rvm: 2.4.4
+    - rvm: 2.5.1
     - rvm: 2.7.3
+    - rvm: 3.3.0
 
 cache: bundler
 
@@ -19,6 +25,12 @@ before_install: gem install bundler:$(grep -A 1 'BUNDLED WITH' Gemfile.lock | se
 before_script:
   - bundle exec bundle-audit update
   - bundle exec bundle-audit check
+  - bundle exec rake check_version
+  - |
+    until nc -z 127.0.0.1 5672; do
+      echo "Waiting for RabbitMQ..."
+      sleep 1
+    done
 
 script: bundle exec rspec --profile --format documentation
 

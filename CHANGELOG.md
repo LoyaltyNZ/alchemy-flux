@@ -1,5 +1,9 @@
 # Change log
 
+## v1.5.0
+
+- Support Ruby 3.3
+
 ## v1.4.0
 
 - Support Ruby 2.7
