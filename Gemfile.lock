@@ -36,7 +36,7 @@ GEM
     rspec-support (3.8.0)
     thor (1.1.0)
     uuidtools (2.2.0)
-    yard (0.9.34)
+    yard (0.9.36)
 
 PLATFORMS
   ruby
