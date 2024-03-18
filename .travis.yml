@@ -19,6 +19,7 @@ before_install: gem install bundler:$(grep -A 1 'BUNDLED WITH' Gemfile.lock | se
 before_script:
   - bundle exec bundle-audit update
   - bundle exec bundle-audit check
+  - bundle exec rake check_version
 
 script: bundle exec rspec --profile --format documentation
 
