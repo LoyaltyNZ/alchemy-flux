@@ -1,5 +1,16 @@
 # Change log
 
+## v1.5.1
+
+Automated Monthly Patching Mar24
+- Gems updated:
+  - rspec-support 3.8.3 (was 3.8.0)
+  - rack 2.2.9 (was 2.2.8.1)
+  - bundler-audit 0.9.1 (was 0.9.0.1)
+  - rspec-core 3.8.2 (was 3.8.0)
+  - rspec-mocks 3.8.2 (was 3.8.0)
+  - rspec-expectations 3.8.6 (was 3.8.0)
+
 ## v1.5.0
 
 - Support Ruby 3.3
