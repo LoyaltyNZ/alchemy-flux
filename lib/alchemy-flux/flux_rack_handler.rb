@@ -1,15 +1,14 @@
 # This file creates a Service that Talks Rack
 require 'rack'
+require 'rackup'
 require 'alchemy-flux'
 
-# The Rack namespace
-module Rack
-  # The Rack Handlers namespace
+# The Rackup namespace
+module Rackup
+  # The Rackup Handlers namespace
   module Handler
     # Alchemy Rack handler
     class AlchemyFlux
-
-
 
       # Start the app server with the supplied Rack application and options
       #
@@ -71,7 +70,6 @@ module Rack
           }
         end
 
-
         @@service.start
       end
 
@@ -128,7 +126,7 @@ module Rack
         # Rack-specific variables
 
         # The Array representing this version of Rack See Rack::VERSION
-        rack_env['rack.version'] = Rack::VERSION
+        rack_env['rack.version'] = Rackup::VERSION
 
         # http or https, depending on the request URL.
         rack_env['rack.url_scheme'] = message['scheme']
@@ -155,6 +153,6 @@ module Rack
       end
     end
 
-    register :alchemy, Rack::Handler::AlchemyFlux
+    register :alchemy, Rackup::Handler::AlchemyFlux
   end
 end

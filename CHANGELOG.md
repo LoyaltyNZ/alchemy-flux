@@ -1,5 +1,10 @@
 # Change log
 
+## v1.6.0
+
+- Bump `rack` version to `3.1`
+  - Drop compatibility with Ruby `2.3.7`
+
 ## v1.5.1
 
 Automated Monthly Patching Mar24
