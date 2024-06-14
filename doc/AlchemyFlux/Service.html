@@ -6,15 +6,15 @@
 <title>
   Class: AlchemyFlux::Service
   
-    &mdash; Documentation by YARD 0.9.15
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "AlchemyFlux::Service";
   relpath = '../';
 </script>
@@ -169,8 +169,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The current state of the Service, either <strong>stopped</strong> or
-<strong>started</strong>.</p>
+<p>The current state of the Service, either <strong>stopped</strong> or <strong>started</strong>.</p>
 </div></span>
   
 </li>
@@ -537,8 +536,7 @@
     
 <p>Create a AlchemyFlux service instance</p>
 
-<p><code>name</code> the name of the service being created
-<code>options</code></p>
+<p><code>name</code> the name of the service being created <code>options</code></p>
 
 
   </div>
@@ -663,8 +661,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>The current state of the Service, either <strong>stopped</strong> or
-<strong>started</strong></p>
+<p>The current state of the Service, either <strong>stopped</strong> or <strong>started</strong></p>
 
 
   </div>
@@ -807,12 +804,9 @@
 <p>The EM defer Threads</p>
 </li></ol>
 
-<p>When we start a Service we do it in a Thread so that it will not block the
-calling Thread</p>
+<p>When we start a Service we do it in a Thread so that it will not block the calling Thread</p>
 
-<p>When the FIRST Service is started EM.run initialises in that Thread When
-the second Service is initialises the block is executed in the new thread,
-but all the callbacks will be executed in the EM thread</p>
+<p>When the FIRST Service is started EM.run initialises in that Thread When the second Service is initialises the block is executed in the new thread, but all the callbacks will be executed in the EM thread</p>
 
 
   </div>
@@ -994,8 +988,7 @@ but all the callbacks will be executed in the EM thread</p>
 <p>send a message to a resource, this does not wait for a response</p>
 <dl class="rdoc-list note-list"><dt><strong>message</strong>
 <dd>
-<p>HTTP formatted message to be sent, must contain `&#39;path&#39;` key with
-URL path</p>
+<p>HTTP formatted message to be sent, must contain ‘’path’‘ key with URL path</p>
 </dd></dl>
 
 
@@ -1090,12 +1083,10 @@ URL path</p>
 <p>send a message to a resource</p>
 <dl class="rdoc-list note-list"><dt><strong>message</strong>
 <dd>
-<p>HTTP formatted message to be sent, must contain `&#39;path&#39;` key with
-URL path</p>
+<p>HTTP formatted message to be sent, must contain ‘’path’‘ key with URL path</p>
 </dd></dl>
 
-<p>This method can optionally take a block which will be executed
-asynchronously and yielded the response</p>
+<p>This method can optionally take a block which will be executed asynchronously and yielded the response</p>
 
 
   </div>
@@ -1159,8 +1150,7 @@ asynchronously and yielded the response</p>
 <p>the message to be sent</p>
 </dd></dl>
 
-<p>This method can optionally take a block which will be executed
-asynchronously and yielded the response</p>
+<p>This method can optionally take a block which will be executed asynchronously and yielded the response</p>
 
 
   </div>
@@ -1468,9 +1458,9 @@ asynchronously and yielded the response</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Aug  6 10:10:40 2018 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.15 (ruby-2.4.4).
+  Generated on Fri Jun 14 13:47:41 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-3.3.0).
 </div>
 
     </div>

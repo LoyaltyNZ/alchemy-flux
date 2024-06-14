@@ -1,5 +1,11 @@
 # Change log
 
+## v1.6.0
+
+- Bump `rack` version to `3.1`
+  - Drop compatibility with Ruby `2.3.7`
+  - Rename from `Rack::Handler::AlchemyFlux` to `Rackup::Handler::AlchemyFlux`, to follow `Rack` new gems naming convention
+
 ## v1.5.1
 
 Automated Monthly Patching Mar24
