@@ -14,7 +14,7 @@ Gem::Specification.new do | s |
   s.files       = Dir.glob( 'lib/**/*.rb'  )
   s.test_files  = Dir.glob( 'spec/**/*.rb' )
 
-  s.required_ruby_version = '>= 2.4.4'
+  s.required_ruby_version = '>= 2.4'
 
   s.add_runtime_dependency     'rack',         '~>  3.1'
   s.add_runtime_dependency     'rackup',       '~>  2.1'

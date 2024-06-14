@@ -4,18 +4,18 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Class: Rack::Handler::AlchemyFlux
+  Class: Rackup::Handler::AlchemyFlux
   
-    &mdash; Documentation by YARD 0.9.15
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
-  pathId = "Rack::Handler::AlchemyFlux";
+<script type="text/javascript">
+  pathId = "Rackup::Handler::AlchemyFlux";
   relpath = '../../';
 </script>
 
@@ -37,7 +37,7 @@
         <div id="menu">
   
     <a href="../../_index.html">Index (A)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../../Rack.html" title="Rack (module)">Rack</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Handler.html" title="Rack::Handler (module)">Handler</a></span></span>
+    <span class='title'><span class='object_link'><a href="../../Rackup.html" title="Rackup (module)">Rackup</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Handler.html" title="Rackup::Handler (module)">Handler</a></span></span>
      &raquo; 
     <span class="title">AlchemyFlux</span>
   
@@ -59,7 +59,7 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Class: Rack::Handler::AlchemyFlux
+      <div id="content"><h1>Class: Rackup::Handler::AlchemyFlux
   
   
   
@@ -74,7 +74,7 @@
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rack::Handler::AlchemyFlux</li>
+            <li class="next">Rackup::Handler::AlchemyFlux</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -256,6 +256,8 @@
       <pre class="lines">
 
 
+83
+84
 85
 86
 87
@@ -324,12 +326,10 @@
 150
 151
 152
-153
-154
-155</pre>
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create_rack_env'>create_rack_env</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
 
@@ -352,7 +352,7 @@
 </span>  <span class='id identifier rubyid_rack_env'>rack_env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>PATH_INFO</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
 
   <span class='comment'># The portion of the request URL that follows the ?, if any
-</span>  <span class='id identifier rubyid_rack_env'>rack_env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>QUERY_STRING</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Rack.html" title="Rack (module)">Rack</a></span></span><span class='op'>::</span><span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_build_query'>build_query</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>query</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+</span>  <span class='id identifier rubyid_rack_env'>rack_env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>QUERY_STRING</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Rack</span><span class='op'>::</span><span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_build_query'>build_query</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>query</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
 
   <span class='comment'># Used to complete the URL
 </span>  <span class='id identifier rubyid_rack_env'>rack_env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>SERVER_NAME</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>host</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -377,7 +377,7 @@
   <span class='comment'># Rack-specific variables
 </span>
   <span class='comment'># The Array representing this version of Rack See Rack::VERSION
-</span>  <span class='id identifier rubyid_rack_env'>rack_env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rack.version</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Rack.html" title="Rack (module)">Rack</a></span></span><span class='op'>::</span><span class='const'>VERSION</span>
+</span>  <span class='id identifier rubyid_rack_env'>rack_env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rack.version</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Rackup.html" title="Rackup (module)">Rackup</a></span></span><span class='op'>::</span><span class='const'>VERSION</span>
 
   <span class='comment'># http or https, depending on the request URL.
 </span>  <span class='id identifier rubyid_rack_env'>rack_env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rack.url_scheme</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>scheme</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -421,8 +421,7 @@
     
 <p>Start the app server with the supplied Rack application and options</p>
 
-<p><code>app</code> [Rack Application] The Application to run.
-<code>options</code> [Hash] The options to start the server with.</p>
+<p><code>app</code> [Rack Application] The Application to run. <code>options</code> [Hash] The options to start the server with.</p>
 
 
   </div>
@@ -436,6 +435,7 @@
       <pre class="lines">
 
 
+17
 18
 19
 20
@@ -451,11 +451,10 @@
 30
 31
 32
-33
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_app'>app</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='id identifier rubyid_app'>app</span><span class='rparen'>)</span>
@@ -518,6 +517,7 @@
       <pre class="lines">
 
 
+36
 37
 38
 39
@@ -555,12 +555,10 @@
 71
 72
 73
-74
-75
-76</pre>
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='id identifier rubyid_app'>app</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_service_name'>service_name</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ALCHEMY_SERVICE_NAME</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -599,7 +597,6 @@
     <span class='rbrace'>}</span>
   <span class='kw'>end</span>
 
-
   <span class='cvar'>@@service</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -633,13 +630,13 @@
       <pre class="lines">
 
 
+77
+78
 79
-80
-81
-82</pre>
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/alchemy-flux/flux_rack_handler.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
   <span class='cvar'>@@service</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
@@ -655,9 +652,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Aug  6 10:10:40 2018 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.15 (ruby-2.4.4).
+  Generated on Fri Jun 14 13:47:41 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-3.3.0).
 </div>
 
     </div>

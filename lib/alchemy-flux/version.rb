@@ -10,6 +10,6 @@ module AlchemyFlux
 
   # Date of the above VERSION, read into 'alchemy-flux.gemspec'.
   #
-  DATE = '2024-05-02'
+  DATE = '2024-06-14'
 
 end

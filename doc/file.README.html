@@ -6,15 +6,15 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.15
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "README";
   relpath = '';
 </script>
@@ -60,19 +60,9 @@
       <div id="content"><div id='filecontents'>
 <h1 id="label-Alchemy+Flux">Alchemy Flux</h1>
 
-<p><a href="https://rubygems.org/gems/alchemy-flux"><img
-src="https://badge.fury.io/rb/alchemy-flux.svg"></a> <a
-href="https://travis-ci.org/LoyaltyNZ/alchemy-flux"><img
-src="https://travis-ci.org/LoyaltyNZ/alchemy-flux.svg?branch=master"></a>
-<a href="http://www.gnu.org/licenses/lgpl-3.0.en.html"><img
-src="https://img.shields.io/badge/license-LGPL--3.0-blue.svg"></a></p>
+<p><a href="https://rubygems.org/gems/alchemy-flux"><img src="https://badge.fury.io/rb/alchemy-flux.svg"></a> <a href="https://travis-ci.org/LoyaltyNZ/alchemy-flux"><img src="https://travis-ci.org/LoyaltyNZ/alchemy-flux.svg?branch=master"></a> <a href="http://www.gnu.org/licenses/lgpl-3.0.en.html"><img src="https://img.shields.io/badge/license-LGPL--3.0-blue.svg"></a></p>
 
-<p>Alchemy-Flux is the Ruby implementation of the <a
-href="https://github.com/LoyaltyNZ/alchemy-framework">Alchemy
-Micro-Services Framework</a>. Flux is implemented in Ruby using the <a
-href="https://github.com/eventmachine/eventmachine">EventMachine</a> and <a
-href="https://github.com/ruby-amqp/amqp">AMQP</a> gems, these work well
-with the Alchemy style of communication.</p>
+<p>Alchemy-Flux is the Ruby implementation of the <a href="https://github.com/LoyaltyNZ/alchemy-framework">Alchemy Micro-Services Framework</a>. Flux is implemented in Ruby using the <a href="https://github.com/eventmachine/eventmachine">EventMachine</a> and <a href="https://github.com/ruby-amqp/amqp">AMQP</a> gems, these work well with the Alchemy style of communication.</p>
 
 <h3 id="label-Getting+Started">Getting Started</h3>
 
@@ -81,8 +71,7 @@ with the Alchemy style of communication.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_alchemy'>alchemy</span><span class='op'>-</span><span class='id identifier rubyid_flux'>flux</span>
 </code></pre>
 
-<p>To create instances of two services, <code>A</code> and <code>B</code>, and
-have instance <code>A1</code> call service <code>B</code>:</p>
+<p>To create instances of two services, <code>A</code> and <code>B</code>, and have instance <code>A1</code> call service <code>B</code>:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>alchemy-flux</span><span class='tstring_end'>&#39;</span></span>
 
@@ -112,38 +101,24 @@ have instance <code>A1</code> call service <code>B</code>:</p>
 
 <h2 id="label-Rack+Implementation">Rack Implementation</h2>
 
-<p>Alchemy Flux comes with an implementation in Rack so that other popular
-frameworks like Rails or Sinatra can be used with Alchemy. The main
-configuration is done through environment variables:</p>
+<p>Alchemy Flux comes with an implementation in Rack so that other popular frameworks like Rails or Sinatra can be used with Alchemy. The main configuration is done through environment variables:</p>
 <ol><li>
-<p><code>ALCHEMY_SERVICE_NAME</code>: the name of the service.
-<strong>REQUIRED</strong></p>
+<p><code>ALCHEMY_SERVICE_NAME</code>: the name of the service. <strong>REQUIRED</strong></p>
 </li><li>
-<p><code>AMQ_URI</code>: URL of the RabbitMQ cluster. Default is
-<code>&#39;amqp://127.0.0.1&#39;</code>,</p>
+<p><code>AMQ_URI</code>: URL of the RabbitMQ cluster. Default is <code>&#39;amqp://127.0.0.1&#39;</code>,</p>
 </li><li>
-<p><code>PREFETCH</code>: the number of messages to prefetch from RabbitMQ and
-handle concurrently. Default is <code>20</code>.</p>
+<p><code>PREFETCH</code>: the number of messages to prefetch from RabbitMQ and handle concurrently. Default is <code>20</code>.</p>
 </li><li>
-<p><code>TIMEOUT</code>: the amount of milliseconds the service will wait for
-outgoing requests. Default is <code>30000</code></p>
+<p><code>TIMEOUT</code>: the amount of milliseconds the service will wait for outgoing requests. Default is <code>30000</code></p>
 </li><li>
-<p><code>THREADPOOL_SIZE</code>: number of Event Machine Threads, must be
-greater than <code>PREFETCH</code> and should be as it represents the
-number of async calls and requests the service can handle. Default is
-<code>500</code></p>
+<p><code>THREADPOOL_SIZE</code>: number of Event Machine Threads, must be greater than <code>PREFETCH</code> and should be as it represents the number of async calls and requests the service can handle. Default is <code>500</code></p>
 </li><li>
-<p><code>ALCHEMY_RESOURCE_PATHS</code>: a comma separated list of resource
-paths that are handled by this service e.g.
-<code>&#39;/v1/users,/v1/admins&#39;</code>. Default is
-<code>&#39;&#39;</code></p>
+<p><code>ALCHEMY_RESOURCE_PATHS</code>: a comma separated list of resource paths that are handled by this service e.g. <code>&#39;/v1/users,/v1/admins&#39;</code>. Default is <code>&#39;&#39;</code></p>
 </li></ol>
 
-<p>Then <code>alchemy-flux</code> gem into a project and run <code>rackup -s
-alchemy</code> to start the server with Alchemy.</p>
+<p>Then <code>alchemy-flux</code> gem into a project and run <code>rackup -s alchemy</code> to start the server with Alchemy.</p>
 
-<p>For example, to run a simple Sinatra application in the Alchemy framework
-you will need the files:</p>
+<p>For example, to run a simple Sinatra application in the Alchemy framework you will need the files:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># ./Gemfile
 </span><span class='id identifier rubyid_source'>source</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://rubygems.org</span><span class='tstring_end'>&#39;</span></span>
@@ -173,16 +148,14 @@ you will need the files:</p>
 <p>Then run:</p>
 
 <pre class="code ruby"><code class="ruby">bundle install
-bundle exec rackup -s alchemy</code></pre>
+bundle exec rackup -s alchemy
+</code></pre>
 
-<p>The service will now be listening on RabbitMQ for incoming messages,
-running a router and calling over HTTP, or calling directly from another
-service will be routed to this service.</p>
+<p>The service will now be listening on RabbitMQ for incoming messages, running a router and calling over HTTP, or calling directly from another service will be routed to this service.</p>
 
 <h2 id="label-Documentation">Documentation</h2>
 
-<p>The documentation for Alchemy Flux is generated by <a
-href="https://rubygems.org/gems/yard/versions/0.8.7.6">yard</a>.</p>
+<p>The documentation for Alchemy Flux is generated by <a href="https://rubygems.org/gems/yard/versions/0.8.7.6">yard</a>.</p>
 
 <h2 id="label-Examples">Examples</h2>
 
@@ -206,9 +179,9 @@ href="https://rubygems.org/gems/yard/versions/0.8.7.6">yard</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Aug  6 10:10:40 2018 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.15 (ruby-2.4.4).
+  Generated on Fri Jun 14 13:47:41 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-3.3.0).
 </div>
 
     </div>
