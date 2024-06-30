@@ -1,5 +1,11 @@
 # Change log
 
+## v1.6.1
+
+Automated Monthly Patching Jun24
+- Gems updated:
+  - rack 3.1.4 (was 3.1.3)
+
 ## v1.6.0
 
 - Bump `rack` version to `3.1`

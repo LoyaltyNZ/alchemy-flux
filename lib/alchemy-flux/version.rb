@@ -6,7 +6,7 @@ module AlchemyFlux
 
   # Version of the gem, read into 'alchemy-flux.gemspec'.
   #
-  VERSION = '1.6.0'
+  VERSION = '1.6.1'
 
   # Date of the above VERSION, read into 'alchemy-flux.gemspec'.
   #
